@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>卡洛猫后台管理系统</title>
+        
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/fbmodal.css" />
+
+        <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.2.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/layout.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.fbmodel.js"></script>
+        
+	<script type="text/javascript">
+            $(window).resize(autosize);
+            $(function(){
+
+                autosize();    
+
+                control();
+
+                $('.loginOut').click(function(){
+
+                    $(".logout").fbmodal({
+                        title: "退出系统",
+                        okay: "确定",
+                        cancel: "取消", 
+                        opacity: 0.55, 
+                        modalwidth: "350",
+                    }, function(callback) {
+                        if(callback == 1){
+                            window.location.href="{:U('Login/logout')}";
+                        } 
+                    });
+                });
+
+                // 设置时间，每秒刷新一次
+                self.setInterval(function(){$("#today").html(date("Y-m-d H:i:s"));},1000);
+
+                /*
+                // 设置选中状态
+                $('.nav li a').click(function(){
+			$('.nav li a').removeClass('nav-current');
+			$(this).addClass('nav-current');
+		});
+                */
+                
+            });
+
+        </script>
+        
+    </head>
+
+    <body>
+        <div class="wrap">
+           
+            <div id="top">
+                <div class="logo"><a href="#">Logo</a></div>
+                <div class="help">
+                    <a href="#"><img src="__PUBLIC__/img/about.png" /><span>关于</span></a>
+                    <a href="javascript:void()" class="loginOut">
+                        <img src="__PUBLIC__/img/logout.png" />
+                        <span>退出</span>
+                    </a>
+                </div>
+
+                <!-- Modal -->
+                <div class="logout" >
+                    <p>确定要退出本系统吗？</p>
+                </div>
+
+                <div class="info">
+                    <span><img src="__PUBLIC__/img/user.png" /><i>{$account}[{$roleName}]</i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><i>当前时间：<font id="today">2014-02-20 20:31:33</font></i></span>
+                </div>
+                <div class="nav">
+                    <ul> 
+                        <li><a href="{:U('Index/index')}" <if condition="$module eq 'Index'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-home.png" /><span>首页</span></a></li>
+                        <li><a href="{:U('Item/index')}" <if condition="$module eq 'Item'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-goods.png" /><span>商品</span></a></li>
+                        <li><a href="{:U('Member/index')}" <if condition="$module eq 'Member'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-user.png" /><span>用户</span></a></li>
+                        <li><a href="{:U('Profile/index')}" <if condition="$module eq 'Profile'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-run.png" /><span>运营</span></a></li>
+                        <li><a href="{:U('Article/index')}" <if condition="$module eq 'Article'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-article.png" /><span>文章</span></a></li>
+                        <li><a href="{:U('Data/index')}" <if condition="$module eq 'Data'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-data.png" /><span>数据</span></a></li>
+                        <li><a href="{:U('Template/index')}" <if condition="$module eq 'Template'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-template.png" /><span>模板</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="clear"></div>

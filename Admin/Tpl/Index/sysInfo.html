@@ -1,0 +1,13 @@
+<include file="Common:base" />
+
+<table  class="table table-bordered table-hover">
+    <volist name="server_info" id="vo" key="k">
+        <php> if($k%2==1) echo "<tr>";</php>
+        <td width="120" align="right">{$key}：</td>
+        <td>{$vo}</td>
+        <php> if($k%2==0) echo "</tr>";</php>
+    </volist>
+    <php>if(count($caches)%2==1) echo '<td>&nbsp;</td><td>&nbsp;</td></tr>';</php>
+</table>
+
+<include file="Common:bottom" />

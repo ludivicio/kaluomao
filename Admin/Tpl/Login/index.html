@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/login.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery-1.6.2.min.js"></script>
+    </head>
+    <body>
+        <div id="top">
+			<p><i><span>卡洛猫</span>信息管理系统</i></p>
+		</div>
+    	<div id="content">
+    		<div id="left"></div>
+    		<div id="right">
+    			<p>管理员登录</p>
+				<form action="{:U('Login/login')}" method="post" />
+					<div class="controls">
+						<img src="__PUBLIC__/img/account.png" />
+						<input type="text" class="" name="account" id="account" />
+					</div>
+					<div class="controls">
+						<img src="__PUBLIC__/img/password.png" />
+						<input type="password" class="" name="password" id="password" />
+					</div>
+					
+					<div class="clear"></div>
+					
+					<div class="login">
+						<input type="submit" id="login" value="登录" />
+					</div>
+					<div class="remember">
+						<input type="checkbox" name="remember" id="remember" />
+						<label for="remember">记住账号</label>
+					</div>
+				</form>
+    		</div>
+    	</div>
+        <div id="bottom">
+			<p>Copyright © 2014 kaluomao.com All Rights Reserved 版权所有&nbsp;·&nbsp;卡洛猫</p>
+		</div>
+    </body>
+</html>

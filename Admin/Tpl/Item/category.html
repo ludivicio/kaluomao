@@ -1,0 +1,187 @@
+<include file="Common:base" />
+
+
+
+<a id="add" class="btn" href="#">添加分类</a>
+
+
+<div id="addCategory" style="display:none">
+
+
+
+
+    <form method="post" action="" style="width:400px">   
+
+        <table>
+            <tr>
+                <td>
+                    <label>上级栏目</label>
+                </td>
+                <td>
+
+
+                    <select>
+                        <foreach name="categories" item="v">
+                            <!--<optgroup label="WEB编程">-->
+                            <option id="{$v.id}">{$v.name}</option>
+                            <!--<option>Ajax</option>-->
+                            <!--</optgroup>-->
+                            <!--    <optgroup label="WinForm编程">
+                                    <option>VB</option>
+                                    <option>VC</option>
+                                    <option>C#</option>
+                                    <option>Delphi</option>
+                                </optgroup>-->
+                        </foreach>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>栏目名称</label>
+                </td>
+                <td>
+                    <input type="text" id="inputAuto" />
+                </td>
+                <td><label style="color:red">(必填)</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>栏目图片</label>
+                </td>
+                <td>
+                    <input type="file" id="inputUpload" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>是否启用</label>
+                </td>
+                <td>
+                    <label>
+                        <input type="radio" id="inlineCheckbox2" value="option2"> 是
+                    </label>
+                    <label>
+                        <input type="radio" id="inlineCheckbox3" value="option3"> 否
+                    </label>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>SEO TITLE</label>
+                </td>
+                <td>
+                    <input type="text" id="inputAuto" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>SEO KEYWORDS</label>
+                </td>
+                <td>
+                    <input type="text" id="inputAuto" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>SEO DESCRIPTION</label>
+                </td>
+                <td>
+                    <textarea rows="5"></textarea>
+                </td>
+                <td></td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function() {
+
+        $('#add').click(function() {
+            var content = $('#addCategory').html();
+            art.dialog({
+                title: '添加分类',
+                content: content,
+                lock: true,
+                fixed: true,
+                okValue: '提交',
+                ok: function() {
+
+                },
+                cancelValue: '取消',
+                cancel: function() {
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
+             var content = $('#addCategory').html();
+             BootstrapDialog.show({
+             title: '添加分类',
+             cssClass: 'form-dialog',
+             message: content,
+             buttons:
+             [
+             {
+             label: '确定',
+             action: function(dialogRef) {
+             dialogRef.close();
+             }
+             },
+             {
+             label: '取消',
+             action: function(dialogRef) {
+             dialogRef.close();
+             }
+             }
+             ]
+             });
+             */
+
+
+
+
+
+
+
+
+
+        });
+    });
+
+</script>
+
+
+
+<include file="Common:bottom" />

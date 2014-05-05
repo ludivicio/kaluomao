@@ -1,0 +1,171 @@
+* {
+    margin:0;
+    padding:0;
+}
+html, body {
+    height:100%;
+    font:12px/100% "微软雅黑", Verdana, Geneva, sans-serif;
+    overflow:hidden;
+    min-width:800px;
+    min-height:500px;
+}
+* html, * html body {
+    background-image:url(about:blank);
+    background-attachment:fixed;
+    min-width:600px;
+}
+
+body {
+    background-color: #F3F7F6;
+}
+
+#top {
+    position:relative;
+    background-color:#56768F;
+    height:80px;
+    border-bottom:1px solid #000;
+}
+
+#content {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:650px;
+    margin:-150px 0 0 -325px;
+    /*margin:100px auto 0;*/
+    text-align: center;
+    height:300px;
+    border:1px solid #777777;
+    box-shadow: 1px 1px 5px #333333;
+}
+
+
+#left {
+    width:200px;
+    height:100%;
+    float:left;
+    background-color: #DEDEDE;
+	background:url(../img/login-left-bg.png) no-repeat;
+
+}
+
+#right {
+    width:450px;
+    height:100%;
+    float:right;
+    background-color: #FFFFFF;
+    box-shadow: -3px 0px 3px #AAAAAA;
+}
+
+#bottom {
+    height:40px;
+    line-height:40px;
+    bottom:0;
+    background-color:#56768F;
+    border-top:1px solid #000;
+    bottom: 0;
+    color: #F0A900;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    width:100%;
+}
+
+
+#top p {
+    
+
+    height:80px;
+    line-height:80px;
+	font-size:30px;
+	margin-left:20px;
+    text-align:left;
+    vertical-align:middle;
+	color:#fff;
+}
+#top p span {
+	color:#F2BC2F;
+}
+
+#right p {
+    color:#E2AC3F;
+    margin-top: 20px;
+    margin-bottom:20px;
+    font-size: 24px;
+    text-align: left;
+    height:40px;
+    line-height: 40px;
+    text-indent: 30px;
+}
+
+#right form {
+    width:400px;
+    margin-left: 30px;
+}
+
+#right form input {
+    height:40px;
+    line-height: 40px;
+    vertical-align: middle;
+	font-size: 18px;
+}
+
+#right form .controls {
+    width:340px;
+    height:40px;
+    line-height: 40px;
+    border:1px solid #999999;
+    background-color: #F8F8F8;
+    margin-top:15px;
+}
+
+#right form .controls img {
+    width:32px;
+    height:32px;
+    margin:3px;
+    vertical-align: middle;
+    float:left;
+}
+
+#right form .controls input {
+    border:0px;
+    width:290px;
+    float:left;
+    border-radius: 0px;
+    border-left: 1px solid #999999;
+    background-color: #F8F8F8;
+	padding-left:10px;
+}
+
+#right form .login {
+    float:left;
+    height:40px;
+    vertical-align: middle;
+    line-height: 40px;
+    margin-top: 30px;
+}
+
+#right form .login input {
+    /*background:url(../img/login-bg.png) repeat-x;*/
+	background-color:#E2AC3F;
+    width:100px;
+    color:#fff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 4px;
+    border:0px;
+    cursor: pointer;
+}
+#right form .login input:hover {
+	background-color:#F2BC2F;
+}
+
+#right form .remember {
+    float:left;
+    margin-left: 25px;
+    height:40px;
+    line-height: 40px;
+    margin-top: 30px;
+    font-size: 16px;
+}

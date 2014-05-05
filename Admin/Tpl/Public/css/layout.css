@@ -1,0 +1,335 @@
+* {
+    margin:0;
+    padding:0;
+}
+html, body {
+    height:100%;
+    font:12px/100% '微软雅黑', Verdana, Geneva, sans-serif;
+    overflow:hidden;
+    min-width:800px;
+    min-height:500px;
+}
+* html, * html body {
+    background-image:url(about:blank);
+    background-attachment:fixed;
+    min-width:600px;
+}
+
+img {
+    border:0px;
+}
+
+#top {
+    position:relative;
+    background-color:#056CA2;
+    height:80px;
+    border-bottom:1px solid #000;
+}
+
+#left {
+    width:206px;
+    float:left;
+    position:relative;
+}
+
+#right {
+    float:right;
+    position:relative;
+}
+
+#bottom {
+    height:20px;
+    line-height:20px;
+    bottom:0;
+    background-color: #333333;
+    bottom: 0;
+    color: #F0A900;
+    font-size: 10px;
+    text-align: center;
+    position: fixed;
+    width:100%;
+    box-shadow: 0 -2px 2px #AAAAAA;
+}
+
+
+.logo {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:200px;
+    height:79px;
+    line-height:80px;
+    overflow:hidden;
+    text-align:center;
+    vertical-align:bottom;
+    background: url(../img/logo.png);
+}
+
+.logo img { 
+    vertical-align:bottom; 
+    margin: 5px 0 0 10px; 
+}
+
+.help {
+    position:absolute;
+    right:30px;
+    top:5px;
+    width:180px;
+    height:30px;
+    line-height:30px;
+    vertical-align: middle;
+    /*overflow:hidden;*/
+}
+
+
+.help a, .help a:visited { 
+    color:#ddd; 
+    font-size: 14px;
+    margin-left:20px;
+    vertical-align: middle;
+}
+.help a:hover { 
+    color:#DE7419; 
+}
+
+.info {
+    position:absolute;
+    right:15px;
+    bottom:5px;
+    height:30px;
+    padding:0 20px;
+    vertical-align: middle;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    color:#fff;
+    vertical-align: middle;
+    /*border:1px solid #355;*/
+    background-color: #04537A;
+    border-radius:20px;
+}
+
+.help a img, .info span img {
+    width:16px;
+    height:16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.logout {} 
+
+
+
+/* 导航 */
+#top div.nav {
+    position:absolute;
+    bottom:0px;
+    left:20%;
+    height:80px;
+    line-height:80px;
+}
+.nav ul {
+
+}
+.nav li {
+    width:80px;
+    min-width:80px;
+    height:80px;
+    float:left;
+
+}
+.nav li a {
+    display:block;
+    width: 80px;
+    height: 80px;
+    text-align:center;
+    background-color:#056CA2;
+    color:#fff;
+}
+.nav li a:hover {
+    background:url(../Img/nav-hover.png);
+    cursor:pointer;
+}
+.nav li a.nav-current {
+    background:url(../Img/nav-current-bg.png);
+    border-bottom:1px solid #eb8e2e;
+    color:#eb8e2e;
+}
+.nav li a img {
+    width:48px;
+    height:48px; 
+    margin:3px auto 2px;
+}
+.nav li a span {
+    display:block;
+    text-align:center;
+    width:100%;
+    height:22px;
+    line-height:22px;
+    font-size: 15px;
+}
+
+
+/* 控制左侧菜单显示和隐藏 */
+#left #control {
+    position:absolute;
+    right:0px;
+    top:0;
+    width:9px;
+    background:url(../Img/control-bg.gif) no-repeat left center;
+    background-color:#056CA2;
+    cursor:pointer;
+    /*box-shadow: -2px 0 6px #777;*/
+}
+
+#left #control.close {
+    position:absolute;
+    right:0px;
+    top:0;
+    background:url(../Img/control-bg.gif) no-repeat right center;
+    background-color:#056CA2;
+    opacity: 1;
+}
+
+/* 左侧菜单 */
+#left .menu { 
+    width:197px; 
+    height:100%;
+    background:#F0F9FD;
+}
+
+#left .menu-title {
+    width:197px;
+    height:36px;
+    line-height: 36px;
+    color:white;
+    font-size: 16px;
+    padding-left:15px;
+    text-align: left;
+    /*background: url(../img/menu-title-bg.png) repeat-x;*/
+    background-color:#3C95C7;
+    border-bottom:1px solid #666;
+}
+
+#left .menu-title img {
+    width:20px;
+    height:20px;
+    vertical-align: middle;
+}
+
+#left .menu-title span {
+    vertical-align: middle;
+    margin-left:20px;
+}
+
+#left .menu-item {
+    width:197px;
+}
+
+#left .menu-item-title {
+    width:197px;
+    background-color:#6A8CE9;
+    line-height:30px;
+    text-indent:40px;
+    font-size:15px;
+    color:#fff;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+#left .menu-item-title img {
+    width:16px;
+    height:16px;
+    float:right;
+    margin-top:7px;
+    margin-right:20px;
+}
+
+#left li {
+    line-height:36px;
+    text-indent:40px;
+}
+#left li a {
+    background-color:#F0F9FD;
+    /*border-left: 5px solid #F0F9FD;*/
+    color:#000;
+    font-size: 14px;
+    display:block;
+}
+
+#left li a:hover {
+    /*background-color:#3EAFE0;*/
+    color:#DE7419;
+    /*border-left: 5px solid #EB8E2E;*/
+}
+
+#left li a.select {
+    /*background-color:#DCDEDA;*/
+    color:#DE7419;
+    /*border-left: 5px solid #B0D750;*/
+}
+
+
+/* 面包屑导航 */
+#breadcrumbs {
+    height:36px;
+    width:100%;
+    background: url(../img/breadcrumbs-bg.png) repeat-x;
+    padding-left:10px;
+    border-bottom:1px solid #AAAAAA;
+    box-shadow: 0 2px 1px #DDDDDD;
+}
+
+#breadcrumbs .curr-location {
+    height:35px;
+    line-height:36px;
+    float:left;
+    font-size:14px;
+}
+
+#breadcrumbs span {
+    color:#0088cc;
+}
+
+
+/* 内容 */
+#content {
+    height:100%;
+    padding-left:10px;
+    padding-right:10px;
+    overflow-x:hidden; 
+    overflow-y:scroll;
+}
+
+#content .item {
+    height: 35px;
+    margin-bottom: 15px;
+    line-height: 35px;
+}
+#content .item div {
+    display: inline-block;
+    padding: 0 10px;
+    height: 32px;
+}
+#content .item div.current {
+    border-bottom: 2px solid #266AAE;
+    color: #266AAE;
+    font-weight: 700;
+}
+
+
+#bottom a, #bottom a:visited {
+    color:#fff;
+}
+
+
+/* 重写bootstrap模态窗口样式 */
+
+.modal-dialog {
+    margin-top:250px;
+    width:450px;
+}
+
+.form-dialog .modal-dialog {
+    margin-top:150px;
+    width:600px;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>卡洛猫后台管理系统</title>
+
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/validate.css" />
+
+        <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery.form.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/assets/artDialog/artDialog.js??skin=blue"></script>
+
+        <script type="text/javascript" src="__PUBLIC__/js/layout.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+
+        <script type="text/javascript">
+            $(window).resize(autosize);
+            $(function() {
+
+                autosize();
+                control();
+                $('.logout').click(function() {
+                    BootstrapDialog.show({
+                        title: '退出系统',
+                        message: '确定要退出本系统吗？',
+                        buttons: [{
+                                label: '确定',
+                                cssClass: 'btn-primary', 
+                                action: function(dialog) {
+                                    window.location.href = "{:U('Login/logout')}";
+                                    dialog.close();
+                                }
+                            }, {
+                                label: '取消',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }]
+                    });
+                });
+
+                // 设置时间，每秒刷新一次
+                self.setInterval(function() {
+                    $("#today").html(date("Y-m-d H:i:s"));
+                }, 1000);
+            });
+
+        </script>
+
+    </head>
+
+    <body>
+        <div class="wrap">
+
+            <div id="top">
+                <div class="logo"></div>
+                <div class="help">
+                    <a href="#"><img src="__PUBLIC__/img/about.png" /><span>关于</span></a>
+                    <a href="javascript:void()" class="logout">
+                        <img src="__PUBLIC__/img/logout.png" />
+                        <span>退出</span>
+                    </a>
+                </div>
+
+                <div class="info">
+                    <span><img src="__PUBLIC__/img/user.png" /><i>{$account}[{$roleName}]</i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><i>当前时间：<font id="today">2014-02-20 20:31:33</font></i></span>
+                </div>
+                <div class="nav">
+                    <ul> 
+                        <li><a href="{:U('Index/index')}" <if condition="$module eq 'Index'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-home.png" /><span>首页</span></a></li>
+                        <li><a href="{:U('Item/index')}" <if condition="$module eq 'Item'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-goods.png" /><span>商品</span></a></li>
+                        <li><a href="{:U('Member/index')}" <if condition="$module eq 'Member'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-user.png" /><span>用户</span></a></li>
+                        <li><a href="{:U('Profile/index')}" <if condition="$module eq 'Profile'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-run.png" /><span>运营</span></a></li>
+                        <li><a href="{:U('Article/index')}" <if condition="$module eq 'Article'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-article.png" /><span>文章</span></a></li>
+                        <li><a href="{:U('Data/index')}" <if condition="$module eq 'Data'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-data.png" /><span>数据</span></a></li>
+                        <li><a href="{:U('Template/index')}" <if condition="$module eq 'Template'"> class="nav-current" </if> ><img src="__PUBLIC__/img/nav-template.png" /><span>模板</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="main">
+
+                <div id="left">
+                    <div id="control"><div class="top"></div></div>
+                    <div class="menu">
+                        <div class="menu-title"><img src="__PUBLIC__/img/menu-title-labell.png" /><span>{$nav_name}</span></div>
+                        <div class="menu-item">
+
+                            <foreach name='sub_menu' item='menu'>
+                                <div class="menu-item-title">{$menu.title}<img src="__PUBLIC__/img/menu-item-title.png" /></div>
+                                <ul>
+                                    <foreach name='menu' key='k' item='v'>
+                                        <if condition="$k neq 'title'">
+                                            <!-- 转换为小写后再比对 -->
+                                            <li><a href="{:U($k)}" <if condition="strtolower($action) eq strtolower($k)">class="select"</if> >{$v}</a></li>
+                                        </if>
+                                    </foreach>
+                                </ul>
+                            </foreach>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="right">
+
+                    <div id="breadcrumbs">
+                        <div class="curr-location">当前位置：<span>{$nav_name}</span>&nbsp;/&nbsp;<span>{$sub_menu_name}</span></div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="content">
+                        <div class="item hr">
+                            <div class="current">{$sub_menu_name}</div>
+                        </div>

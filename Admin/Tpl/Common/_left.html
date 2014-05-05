@@ -1,0 +1,23 @@
+<div id="left">
+    <div id="control"><div class="top"></div></div>
+    <div class="menu">
+        <div class="menu-title"><img src="__PUBLIC__/img/menu-title-labell.png" /><span>{$nav_name}</span></div>
+        <div class="menu-item">
+            
+            <foreach name='sub_menu' item='menu'>
+                <div class="menu-item-title">{$menu.title}<img src="__PUBLIC__/img/menu-item-title.png" /></div>
+                <ul>
+                    <foreach name='menu' key='k' item='v'>
+                        <if condition="$k neq 'title'">
+                            <!-- 转换为小写后再比对 -->
+                            <li><a href="{:U($k)}" <if condition="strtolower($action) eq strtolower($k)">class="select"</if> >{$v}</a></li>
+                        </if>
+                    </foreach>
+                </ul>
+            </foreach>
+            
+        </div>
+    </div>
+</div>
+
+               
