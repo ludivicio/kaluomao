@@ -22,6 +22,13 @@ CREATE TABLE IF NOT EXISTS `kaluomao`.`ka_admin` (
 ENGINE = MyISAM
 COMMENT = '管理员信息表';
 
+--
+-- 转存表中的数据 `ka_admin`
+--
+
+INSERT INTO `ka_admin` (`id`, `account`, `password`, `last_ip`, `role_id`, `last_time`, `email`, `status`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '127.0.0.1', 1, 1399293326, 'lurma@qq.com', 1);
+-- --------------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table `kaluomao`.`ka_admin_role`
@@ -36,6 +43,16 @@ CREATE TABLE IF NOT EXISTS `kaluomao`.`ka_admin_role` (
 ENGINE = MyISAM
 COMMENT = '管理员角色表';
 
+--
+-- 转存表中的数据 `ka_admin_role`
+--
+
+INSERT INTO `ka_admin_role` (`id`, `name`, `remark`, `order`, `status`) VALUES
+(1, '超级管理员', '拥有所有的权限', 0, 1),
+(2, '管理员', '拥有部分的权限', 1, 1),
+(3, '编辑', '只有商品的增删改查权限', 2, 1);
+
+-- --------------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table `kaluomao`.`ka_article`
