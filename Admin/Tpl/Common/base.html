@@ -4,15 +4,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>卡洛猫后台管理系统</title>
 
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.css" />
+        <!--<link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap.min.css" />-->
+        <!--<link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.css" />-->
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css" />
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css" />
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/validate.css" />
 
         <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap.min.js"></script>
-        <script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.js"></script>
+        <!--<script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap.min.js"></script>-->
+        <!--<script type="text/javascript" src="__PUBLIC__/assets/bootstrap/bootstrap-dialog.min.js"></script>-->
         <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery.validate.min.js"></script>
         <script type="text/javascript" src="__PUBLIC__/assets/jquery/jquery.form.js"></script>
         <script type="text/javascript" src="__PUBLIC__/assets/artDialog/artDialog.js??skin=blue"></script>
@@ -26,7 +26,25 @@
 
                 autosize();
                 control();
+
                 $('.logout').click(function() {
+
+                    art.dialog({
+                        title: '退出系统',
+                        content: '<span style="font-size:20px; ">确定要退出本系统吗？</span>',
+                        width: 250,
+                        height: 100,
+                        lock: true,
+                        fixed: true,
+                        okValue: '确定',
+                        ok: function() {
+                            window.location.href = "{:U('Login/logout')}";
+                        },
+                        cancelValue: '取消',
+                        cancel: true
+                    });
+
+                    /*
                     BootstrapDialog.show({
                         title: '退出系统',
                         message: '确定要退出本系统吗？',
@@ -44,6 +62,7 @@
                                 }
                             }]
                     });
+                    */
                 });
 
                 // 设置时间，每秒刷新一次

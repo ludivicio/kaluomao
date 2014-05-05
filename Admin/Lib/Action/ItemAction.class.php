@@ -35,7 +35,31 @@ class ItemAction extends CommonAction {
     }
     
     public function addCategory() {
+
+
+
+
+
         $this->display();
+    }
+
+    public function addCateHandle() {
+        if (!IS_POST) {
+            halt('页面不存在');
+        }
+
+        $db = M('item_cate');
+
+        $data = array(
+
+
+
+        );
+
+        p($_POST);die;
+        //$this->success('添加成功', U('Item/category'));
+        //redirect(U('Item/category'));
+
     }
     
     public function comment() {
