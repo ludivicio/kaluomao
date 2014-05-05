@@ -2,101 +2,101 @@
 
 
 <form method="post" action="{:U('Item/addCateHandle')}" >
-        <table>
-            <tr>
-                <td class="title">
-                    <label>上级栏目</label>
-                </td>
-                <td>
-                    <select name="pid">
-                        <option value="0">--请选择分类--</option>
-                        <foreach name="categories" item="v">
-                            <option value="{$v.id}">{$v.name}</option>
-                        </foreach>
-                    </select>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="title">
-                    <label>栏目名称</label>
-                </td>
-                <td>
-                    <input type="text" class="" name="name" />
-                </td>
-                <td><label style="color:red">(必填)</label></td>
-            </tr>
-            <!--
-            <tr>
-                <td class="title">
-                    <label>栏目图片</label>
-                </td>
-                <td>
-                    <input type="file"  name="image" />
-                </td>
-                <td></td>
-            </tr>
-            -->
-            <tr>
-                <td class="title">
-                    <label>是否启用</label>
-                </td>
-                <td>
-                    <label>
-                      <input type="radio" name="status" value="1" checked > 是
-                    </label>
-                    <label>
-                      <input type="radio" name="status" value="0"> 否
-                    </label>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="title">
-                    <label>排序</label>
-                </td>
-                <td>
-                    <input type="text" name="order" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="title">
-                    <label>SEO TITLE</label>
-                </td>
-                <td>
-                    <input type="text" name="seo_title" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="title">
-                    <label>SEO KEYWORDS</label>
-                </td>
-                <td>
-                    <input type="text" name="seo_keys" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="title">
-                    <label>SEO DESCRIPTION</label>
-                </td>
-                <td>
-                    <textarea name="seo_desc" rows="5"></textarea>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="3" class="action">
-                    <button type="submit" class="btn btn-confirm">确定</button>
-                    <button type="button" class="btn btn-cancel" style="margin-left: 30px">取消</button>
-                </td>
-            </tr>
+    <table>
+        <tr>
+            <td class="title">
+                <label>上级栏目</label>
+            </td>
+            <td>
+                <select name="pid">
+                    <option value="0">--请选择分类--</option>
+                    <foreach name="categories" item="v">
+                        <option value="{$v.id}">{$v.name}</option>
+                    </foreach>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>栏目名称</label>
+            </td>
+            <td>
+                <input type="text" class="" name="name" />
+            </td>
+            <td><label style="color:red">(必填)</label></td>
+        </tr>
+        <!--
+        <tr>
+            <td class="title">
+                <label>栏目图片</label>
+            </td>
+            <td>
+                <input type="file"  name="image" />
+            </td>
+            <td></td>
+        </tr>
+        -->
+        <tr>
+            <td class="title">
+                <label>是否启用</label>
+            </td>
+            <td>
+                <label>
+                  <input type="radio" name="status" value="1" checked > 是
+                </label>
+                <label>
+                  <input type="radio" name="status" value="0"> 否
+                </label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>排序</label>
+            </td>
+            <td>
+                <input type="text" name="order" />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO TITLE</label>
+            </td>
+            <td>
+                <input type="text" name="seo_title" />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO KEYWORDS</label>
+            </td>
+            <td>
+                <input type="text" name="seo_keys" />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO DESCRIPTION</label>
+            </td>
+            <td>
+                <textarea name="seo_desc" rows="5"></textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="action">
+                <button type="submit" class="btn btn-confirm">确定</button>
+                <button type="button" class="btn btn-cancel" style="margin-left: 30px">取消</button>
+            </td>
+        </tr>
 
-        </table>
+    </table>
 
-        </form>
+</form>
 
 
 
