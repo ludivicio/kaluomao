@@ -1,5 +1,19 @@
 
 
+//删除操作
+function check(){
+    var sucin = 0;
+    $("input[name='id[]']:checked").each(function(i, n){
+        sucin = 1;
+    });
+    if(sucin == 0){
+        alert("请选择要删除的ID");
+        return false;
+    }else{
+        return confirm('确认删除？');
+        return true;
+    }
+}
 
 /**
  * 通用AJAX提交

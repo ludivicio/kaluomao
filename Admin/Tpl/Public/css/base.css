@@ -46,6 +46,7 @@ input, textarea, select {
     vertical-align: middle;
 }
 option{ height: 20px;}
+select {text-align: center}
 .clear { clear:both; }
 .fr{ float: right;}
 .line {

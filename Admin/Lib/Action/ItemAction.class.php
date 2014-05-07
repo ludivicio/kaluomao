@@ -23,7 +23,20 @@ class ItemAction extends CommonAction {
     }
     
     public function category() {
-        
+
+        $items_cate = M('item_cate');
+        $cates = $items_cate->where('status = 1')->order(array('order'=>'desc'))->select();
+
+        foreach ($cates as $val) {
+            if ($val['pid'] == 0) {
+                $categories['parent'][] = $val;
+            }else {
+                $categories['child'][$val['pid']][] = $val;
+            }
+        }
+
+        $this->assign('cates_list', $categories);
+
         $this->display();
     }
     
@@ -47,6 +60,7 @@ class ItemAction extends CommonAction {
             'alias' => '',
             'pid' => $this->_post('pid'),
             'status' => $this->_post('status'),
+            'order' => $this->_post('order'),
             'seo_title' => $this->_post('seo_title'),
             'seo_keys' => $this->_post('seo_keys'),
             'seo_desc' => $this->_post('seo_desc')
@@ -59,7 +73,15 @@ class ItemAction extends CommonAction {
         }
 
     }
-    
+
+    public function editCate() {
+        $this->display();
+    }
+
+    public function editCateHandle() {
+        $this->display();
+    }
+
     public function comment() {
         $this->display();
     }

@@ -2,106 +2,68 @@
 
 
 
-<a id="add" class="btn" href="#">添加分类</a>
-
-
-<div id="addCategory" style="display:none">
-
-
-
-
-    <form method="post" action="" style="width:400px">   
-
-        <table>
-            <tr>
-                <td>
-                    <label>上级栏目</label>
-                </td>
-                <td>
-
-
-                    <select>
-                        <foreach name="categories" item="v">
-                            <!--<optgroup label="WEB编程">-->
-                            <option id="{$v.id}">{$v.name}</option>
-                            <!--<option>Ajax</option>-->
-                            <!--</optgroup>-->
-                            <!--    <optgroup label="WinForm编程">
-                                    <option>VB</option>
-                                    <option>VC</option>
-                                    <option>C#</option>
-                                    <option>Delphi</option>
-                                </optgroup>-->
-                        </foreach>
-                    </select>
-                </td>
-                <td></td>
+<form id="myform" name="myform" action="{:U('ItemsCate/delete')}" method="post">
+    <div class="table-list">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr class="title">
+                <th width="5%"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th width=200>分类名称</th>
+                <th width=100>别名</th>
+                <th>SEO Title</th>
+                <th width=80>排序值</th>
+                <th width=80>是否启用</th>
+                <th width=80>操作</th>
             </tr>
-            <tr>
-                <td>
-                    <label>栏目名称</label>
-                </td>
-                <td>
-                    <input type="text" id="inputAuto" />
-                </td>
-                <td><label style="color:red">(必填)</label></td>
-            </tr>
-            <tr>
-                <td>
-                    <label>栏目图片</label>
-                </td>
-                <td>
-                    <input type="file" id="inputUpload" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <label>是否启用</label>
-                </td>
-                <td>
-                    <label>
-                        <input type="radio" id="inlineCheckbox2" value="option2"> 是
-                    </label>
-                    <label>
-                        <input type="radio" id="inlineCheckbox3" value="option3"> 否
-                    </label>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <label>SEO TITLE</label>
-                </td>
-                <td>
-                    <input type="text" id="inputAuto" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <label>SEO KEYWORDS</label>
-                </td>
-                <td>
-                    <input type="text" id="inputAuto" />
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <label>SEO DESCRIPTION</label>
-                </td>
-                <td>
-                    <textarea rows="5"></textarea>
-                </td>
-                <td></td>
-            </tr>
-
+            </thead>
+            <tbody>
+            <volist name="cates_list['parent']" id='val'>
+                <tr>
+                    <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+                    <td><img src="__PUBLIC__/img/tv-collapsable.gif" class="expandable" id="{$val.id}" style="margin-left:80px"/>&nbsp;&nbsp;{$val.name}</td>
+                    <td align="center"><em style="color:red;">{$val.alias}</em></td>
+                    <td align="left">{$val.seo_title}</td>
+                    <td align="center"><input type="text" class="" value="{$val.order}" size="4" name="orders[{$val.id}]"  id="listorders[{$val.id}]" /></td>
+                    <td align="center" onclick="status({$val.id},'is_index')" id="is_index_{$val.id}"><img src="__PUBLIC__/img/status_{$val.status}.gif" /></td>
+                    <td align="center"><a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">编辑</a></td>
+                </tr>
+                <volist name="cates_list['sub'][$val['id']]" id='sval'>
+                    <tr class="sub_{$val.id}">
+                        <td align="center"><input type="checkbox" value="{$sval.id}" name="id[]"></td>
+                        <td><img src="__PUBLIC__/img/tv-collapsable.gif" class="expandable" id="{$sval.id}" style="margin-left:100px" />&nbsp;&nbsp;{$sval.name}</td>
+                        <td align="center"><if condition="$sval['img'] neq ''"><img src="<php>echo C('web_path').ltrim($sval['img'],'/');</php>" height="25px;"/></if></td>
+                        <td align="center"></td>
+                        <td align="left">{$sval.seo_title}</td>
+                        <td align="center"><input type="text" class="input-text-c input-text" value="{$sval.ord}" size="4" name="orders[{$sval.id}]" /></td>
+                        <td align="center"></td>
+                        <td align="center"><a class="blue" href="{:U('ItemsCate/edit',array('id'=>$sval['id']))}">编辑</a></td>
+                    </tr>
+                    <volist name="cates_list['sub'][$sval['id']]" id='ssval'>
+                        <tr class="sub_{$val.id} sub_{$sval.id}">
+                            <td align="center"><input type="checkbox" value="{$ssval.id}" name="id[]"></td>
+                            <td><img src="__PUBLIC__/statics/images/tv-collapsable.gif" style="margin-left:120px"/>&nbsp;&nbsp;{$ssval.name}</td>
+                            <td align="center"><if condition="$ssval['img'] neq ''"><img src="<php>echo C('web_path').ltrim($ssval['img'],'/');</php>" height="25px;"/></if></td>
+                            <td align="center"></td>
+                            <td align="left">{$ssval.seo_title}</td>
+                            <td align="center"><input type="text" class="input-text-c input-text" value="{$ssval.ord}" size="4" name="orders[{$ssval.id}]" /></td>
+                            <td align="center" onclick="status({$ssval.id},'is_index')" id="is_index_{$ssval.id}"><img src="__PUBLIC__/statics/images/status_{$ssval.is_index}.gif" /></td>
+                            <td align="center"><a class="blue" href="{:U('ItemsCate/edit',array('id'=>$ssval['id']))}">编辑</a></td>
+                        </tr>
+                    </volist>
+                </volist>
+            </volist>
+            </tbody>
         </table>
 
-    </form>
+        <div class="btn">
+            <label for="check_box">全选/取消</label>
+            <input type="submit" class="button" name="delete" value="删除" onclick="return check();"/>
+            <input type="submit" class="button" name="order" onclick="document.myform.action='{:U('ItemsCate/order')}'" value="排序"/>
+            <div id="pages">{$page}</div>
+        </div>
+    </div>
+</form>
 
-</div>
 
 
 
