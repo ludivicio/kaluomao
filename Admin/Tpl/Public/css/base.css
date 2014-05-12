@@ -82,7 +82,7 @@ table tr td {
     vertical-align: middle;
     line-height: 20px;
     padding: 5px;
-    border-bottom: 1px dotted #929292;
+    /*border-bottom: 1px dotted #929292;*/
 }
 
 table td.title {
@@ -99,6 +99,7 @@ button {
 .btn {
     border: 1px solid #CCCCCC;
     text-align: center;
+    background-color: #0055FF;
     color: #FFFFFF;
     font-size: 16px;
     cursor: pointer;

@@ -1,7 +1,7 @@
 <include file="Common:base"/>
 
 
-<form id="myform" name="myform" action="{:U('ItemsCate/delete')}" method="post">
+<form id="myform" name="myform" action="{:U('Item/delCateHandle')}" method="post">
 
     <table width="100%" cellspacing="0">
         <thead>
@@ -20,20 +20,23 @@
             <tr>
                 <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
                 <td><img src="__PUBLIC__/img/tv-collapsable.gif" class="expandable" id="{$val.id}"
-                         style="margin-left:80px"/>&nbsp;&nbsp;{$val.name}
+                         style="margin-left:60px"/>&nbsp;&nbsp;{$val.name}
                 </td>
-                <td align="center"><em style="color:red;">{$val.alias}</em></td>
+                <td align="center">{$val.alias}</td>
                 <td align="left">{$val.seo_title}</td>
-                <td align="center"><input type="text" class="" value="{$val.order}" size="4"
-                                          name="orders[{$val.id}]" id="listorders[{$val.id}]"/></td>
-                <td align="center" onclick="status({$val.id},'is_index')" id="is_index_{$val.id}"><img
-                        src="__PUBLIC__/img/status_{$val.status}.gif"/></td>
+                <td align="center">
+                    <input type="text" value="{$val.order}" size="4" name="orders[{$val.id}]" />
+                </td>
+                <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}">
+                    <img src="__PUBLIC__/img/status_{$val.status}.gif"/>
+                </td>
                 <td align="center">
                     <a class="blue" href="{:U('Item/addCate', array('id'=>$val['id']))}">添加子分类</a>&nbsp;&nbsp;
                     <a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">编辑</a>&nbsp;&nbsp;
                     <a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">删除</a>
                 </td>
             </tr>
+
             <volist name="cates_list['sub'][$val['id']]" id='sval'>
                 <tr class="sub_{$val.id}">
                     <td align="center"><input type="checkbox" value="{$sval.id}" name="id[]"></td>
@@ -78,10 +81,10 @@
         </tbody>
     </table>
 
-    <div class="btn">
+    <div>
         <label for="check_box">全选/取消</label>
-        <input type="submit" class="button" name="delete" value="删除" onclick="return check();"/>
-        <input type="submit" class="button" name="order" onclick="document.myform.action='{:U('ItemsCate/order')}'"
+        <input type="submit" class="btn" name="delete" value="删除" onclick="return check();"/>
+        <input type="submit" class="btn" name="order" onclick="document.myform.action='{:U('Item/orderCateHandle')}'"
                value="排序"/>
 
         <div id="pages">{$page}</div>
@@ -93,6 +96,8 @@
 <script type="text/javascript">
 
     $(function () {
+
+
 
         $('#add').click(function () {
             var content = $('#addCategory').html();

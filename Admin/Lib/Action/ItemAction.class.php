@@ -24,8 +24,14 @@ class ItemAction extends CommonAction {
     
     public function category() {
 
+        import('Class.Category', APP_PATH);
+
         $items_cate = M('item_cate');
-        $cates = $items_cate->where('status = 1')->order(array('order'=>'desc'))->select();
+        $cates = $items_cate->where('status = 1')->order(array('order'=>'asc'))->select();
+        
+
+        //$cates = Category::unlimitForLevel($cates);
+
 
         foreach ($cates as $val) {
             if ($val['pid'] == 0) {
@@ -42,11 +48,13 @@ class ItemAction extends CommonAction {
     
     public function addCate() {
 
-        $cur_cate = $_GET['id'];
-        if($cur_cate != null) {
-            // 当前选中的分类
-            $this->assign('cur_cate', $cur_cate);
-        }
+        $cate_pid = isset($_GET['id']) ? $_GET['id'] : -1;
+        
+        // 或者用I()方法代替
+        // $cate_pid = I('id', -1, 'intval');
+
+        // 当前选中的分类
+        $this->assign('cate_pid', $cate_pid);
 
         // 读取所有的分类
         $categories = M('item_cate')->select();
@@ -87,8 +95,43 @@ class ItemAction extends CommonAction {
         $this->display();
     }
 
+    // 编辑类别处理
     public function editCateHandle() {
         $this->display();
+    }
+
+
+    // 删除类别处理
+    public function delCateHandle() {
+        p($_POST);die;
+    }
+
+
+    // 类别排序处理
+    public function orderCateHandle() {
+        
+        if (!IS_POST) {
+            halt('页面不存在');
+        }
+
+        $orders = $_POST['orders'];
+
+        if($orders == null) {
+            return;
+        }
+
+        $db = M('item_cate');
+
+        foreach($orders as $id => $val) {
+
+            if(!is_numeric($val) || intval($val) < 0) {
+                $val = 0;
+            } 
+
+            $db->where(array('id' => $id))->setField('order', $val);
+        }
+
+        $this->redirect('Item/category');
     }
 
     public function comment() {
