@@ -40,9 +40,18 @@ class ItemAction extends CommonAction {
         $this->display();
     }
     
-    public function addCategory() {
+    public function addCate() {
+
+        $cur_cate = $_GET['id'];
+        if($cur_cate != null) {
+            // 当前选中的分类
+            $this->assign('cur_cate', $cur_cate);
+        }
+
         // 读取所有的分类
-        $this->categories = M('item_cate')->select();
+        $categories = M('item_cate')->select();
+        $this->assign('categories', $categories);
+
         $this->display();
     }
 

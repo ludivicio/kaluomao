@@ -56,19 +56,33 @@ select {text-align: center}
 }
 .hr {  }
 
+
+.table-list {
+
+}
+
 table {
-    margin:10px;
+
+}
+
+table tr th {
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    background-color:#0088cc;
 }
 
 table tr {
     height:20px;
     line-height: 20px;
+
 }
 
 table tr td {
     vertical-align: middle;
     line-height: 20px;
     padding: 5px;
+    border-bottom: 1px dotted #929292;
 }
 
 table td.title {

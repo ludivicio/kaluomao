@@ -36,7 +36,7 @@ return array(
                 'Item/index' => '商品列表',
                 'Item/addItem' => '添加商品',
                 'Item/category' => '商品分类',
-                'Item/addCategory' => '添加分类',
+                'Item/addCate' => '添加分类',
                 'Item/comment' => '商品评论',
                 'Item/baoliao' => '用户爆料',
                 'Item/collect' => '商品采集',

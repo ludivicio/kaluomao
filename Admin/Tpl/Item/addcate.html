@@ -11,7 +11,7 @@
                 <select name="pid">
                     <option value="0">--请选择分类--</option>
                     <foreach name="categories" item="v">
-                        <option value="{$v.id}">{$v.name}</option>
+                        <option value="{$v.id}" <if condition="$cur_cate eq $v[id]">selected="selected"</if> >{$v.name}</option>
                     </foreach>
                 </select>
             </td>
