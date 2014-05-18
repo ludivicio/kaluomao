@@ -57,12 +57,17 @@ select {text-align: center}
 .hr {  }
 
 
-.table-list {
-
-}
 
 table {
 
+}
+
+table.table-list {
+
+}
+
+table.table-list td {
+    border-bottom: 1px dotted #929292;
 }
 
 table tr th {
@@ -81,8 +86,7 @@ table tr {
 table tr td {
     vertical-align: middle;
     line-height: 20px;
-    padding: 5px;
-    /*border-bottom: 1px dotted #929292;*/
+    padding:3px;
 }
 
 table td.title {
@@ -114,9 +118,8 @@ button {
     background-color: #929292;
 }
 
-.action {
-    text-align: center;
-    margin: auto;
+div.action {
+    margin: 10px 0 15px;
 }
 
 

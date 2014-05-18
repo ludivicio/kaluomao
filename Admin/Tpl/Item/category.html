@@ -1,149 +1,100 @@
 <include file="Common:base"/>
 
 
-<form id="myform" name="myform" action="{:U('Item/delCateHandle')}" method="post">
+<form id="myform" name="myform" action="{:U('Item/orderCateHandle')}" method="post" >
 
-    <table width="100%" cellspacing="0">
+    <table class="table-list" width="100%" cellspacing="0">
         <thead>
         <tr>
-            <th width="5%"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+            <th width="5%"><input type="checkbox" name="check_all" value="" id="check_all"></th>
             <th width=200>分类名称</th>
-            <th width=200>别名</th>
             <th>SEO Title</th>
+            <th>SEO Keywords</th>
             <th width=100>排序值</th>
             <th width=80>是否启用</th>
             <th width=200>操作</th>
         </tr>
         </thead>
         <tbody>
-        <volist name="cates_list['parent']" id='val'>
-            <tr>
-                <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
-                <td><img src="__PUBLIC__/img/tv-collapsable.gif" class="expandable" id="{$val.id}"
-                         style="margin-left:60px"/>&nbsp;&nbsp;{$val.name}
-                </td>
-                <td align="center">{$val.alias}</td>
-                <td align="left">{$val.seo_title}</td>
-                <td align="center">
-                    <input type="text" value="{$val.order}" size="4" name="orders[{$val.id}]" />
-                </td>
-                <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}">
-                    <img src="__PUBLIC__/img/status_{$val.status}.gif"/>
-                </td>
-                <td align="center">
-                    <a class="blue" href="{:U('Item/addCate', array('id'=>$val['id']))}">添加子分类</a>&nbsp;&nbsp;
-                    <a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">编辑</a>&nbsp;&nbsp;
-                    <a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">删除</a>
-                </td>
-            </tr>
-
-            <volist name="cates_list['sub'][$val['id']]" id='sval'>
-                <tr class="sub_{$val.id}">
-                    <td align="center"><input type="checkbox" value="{$sval.id}" name="id[]"></td>
-                    <td><img src="__PUBLIC__/img/tv-collapsable.gif" class="expandable" id="{$sval.id}"
-                             style="margin-left:100px"/>&nbsp;&nbsp;{$sval.name}
+            <volist name="cates" id='val'>
+                <tr>
+                    <td align="center"><input type="checkbox" value="{$val.id}" name="id[]" /></td>
+                    <td>{$val.html}{$val.name}
                     </td>
+                    <td align="left">{$val.seo_title}</td>
+                    <td align="left">{$val.seo_keys}</td>
                     <td align="center">
-                        <if condition="$sval['img'] neq ''"><img
-                                src="<php>echo C('web_path').ltrim($sval['img'],'/');</php>" height="25px;"/></if>
+                        <input type="text" value="{$val.order}" size="4" name="orders[{$val.id}]" />
                     </td>
-                    <td align="center"></td>
-                    <td align="left">{$sval.seo_title}</td>
-                    <td align="center"><input type="text" class="input-text-c input-text" value="{$sval.ord}"
-                                              size="4" name="orders[{$sval.id}]"/></td>
-                    <td align="center"></td>
-                    <td align="center"><a class="blue" href="{:U('ItemsCate/edit',array('id'=>$sval['id']))}">编辑</a>
+                    <td align="center" onclick="status({$val.id})" id="status_{$val.id}">
+                        <img src="__PUBLIC__/img/status_{$val.status}.gif"/>
+                    </td>   
+                    <!--
+                    <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}">
+                        <img src="__PUBLIC__/img/status_{$val.status}.gif"/>
                     </td>
-                </tr>
-                <volist name="cates_list['sub'][$sval['id']]" id='ssval'>
-                    <tr class="sub_{$val.id} sub_{$sval.id}">
-                        <td align="center"><input type="checkbox" value="{$ssval.id}" name="id[]"></td>
-                        <td><img src="__PUBLIC__/statics/images/tv-collapsable.gif" style="margin-left:120px"/>&nbsp;&nbsp;{$ssval.name}
-                        </td>
-                        <td align="center">
-                            <if condition="$ssval['img'] neq ''"><img
-                                    src="<php>echo C('web_path').ltrim($ssval['img'],'/');</php>" height="25px;"/>
-                            </if>
-                        </td>
-                        <td align="center"></td>
-                        <td align="left">{$ssval.seo_title}</td>
-                        <td align="center"><input type="text" class="input-text-c input-text" value="{$ssval.ord}"
-                                                  size="4" name="orders[{$ssval.id}]"/></td>
-                        <td align="center" onclick="status({$ssval.id},'is_index')" id="is_index_{$ssval.id}"><img
-                                src="__PUBLIC__/statics/images/status_{$ssval.is_index}.gif"/></td>
-                        <td align="center"><a class="blue"
-                                              href="{:U('ItemsCate/edit',array('id'=>$ssval['id']))}">编辑</a>
-                        </td>
-                    </tr>
-                </volist>
+                    -->
+                    <td align="center">
+                        <a class="blue" href="{:U('Item/addCate', array('id'=>$val['id']))}">添加子分类</a>&nbsp;&nbsp;
+                        <a class="blue" href="{:U('Item/editCate', array('id'=>$val['id']))}">编辑</a>&nbsp;&nbsp;
+                        <a class="blue" href="#" onclick='confirmDel("{:U('Item/delCateHandle', array('id'=>$val['id']))}")' >删除</a>
+                    </td>
+                </tr>            
             </volist>
-        </volist>
+            
         </tbody>
     </table>
 
-    <div>
-        <label for="check_box">全选/取消</label>
-        <input type="submit" class="btn" name="delete" value="删除" onclick="return check();"/>
-        <input type="submit" class="btn" name="order" onclick="document.myform.action='{:U('Item/orderCateHandle')}'"
-               value="排序"/>
-
-        <div id="pages">{$page}</div>
+    <div class="action">
+        <label for="check_box">全选/取消</label>&nbsp;&nbsp;
+        <input type="submit" class="btn" name="order" value="排序"/>
     </div>
 
 </form>
 
 
 <script type="text/javascript">
+    
+    // 弹出对话框提醒用户是否要删除
+    function confirmDel(url) {
+        var result = window.confirm("确定要删除吗？");
+        if (result) {
+            window.location = url;
+        }
+    }
+     
+    // 用Ajax修改分类的状态
+    function status(id) {
 
-    $(function () {
+        $.get("{:U('Item/updateStatus')}", { id: id }, function(data){
+            $("#status_" + id +" img").attr('src', '__PUBLIC__/img/status_' + data.data + '.gif')
+        },"json");
 
+    }
 
+    $(function() {
 
-        $('#add').click(function () {
-            var content = $('#addCategory').html();
-            art.dialog({
-                title: '添加分类',
-                content: content,
-                lock: true,
-                fixed: true,
-                okValue: '提交',
-                ok: function () {
-
-                },
-                cancelValue: '取消',
-                cancel: function () {
-
-                }
-            });
-
-
-            /*
-             var content = $('#addCategory').html();
-             BootstrapDialog.show({
-             title: '添加分类',
-             cssClass: 'form-dialog',
-             message: content,
-             buttons:
-             [
-             {
-             label: '确定',
-             action: function(dialogRef) {
-             dialogRef.close();
-             }
-             },
-             {
-             label: '取消',
-             action: function(dialogRef) {
-             dialogRef.close();
-             }
-             }
-             ]
-             });
-             */
-
-
+        /*
+         *  jquery1.9+ 在使用attr方法改变checkbox的checked属性时，
+         *  只能操作一次，重复操作的话，界面将不更新，即不可重复操作
+         *  解决方案：采用prop方法替代attr方法
+         *
+         *  多选功能暂时没有用到
+         *
+         */
+        $('#check_all').click(function() {
+            if( $('#check_all').is(':checked') ) {
+                $('input[name="id[]"]').each(function() {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $('input[name="id[]"]').each(function() {
+                    $(this).prop("checked", false);
+                });
+            }
         });
     });
+        
 
 </script>
 

@@ -19,6 +19,8 @@ function autosize(){
         height: (h - 20) + 'px',
         width: w + 'px'
     });
+
+    $('#content').css('height', (h - 55) + 'px');
 }
   
 /*
@@ -29,23 +31,11 @@ function control() {
         var webBodyWidth = getBodySize("w");
         
         if($('#control').attr('class') == 'close'){ // 弹出左侧菜单
-            /*
-            $("#left").css('marginLeft', '0px');
-            $("#right").css('width', (webBodyWidth - 206) + 'px');
-            $(this).removeClass("close");
-            */
-            
             $("#left").animate({marginLeft: "0px"}, "fast");
             $("#right").animate({width: (webBodyWidth - 206)+'px'}, "fast");
             $(this).removeClass("close");
 
         } else { // 隐藏左侧菜单
-            /*
-            $("#left").css('marginLeft', '-197px');
-            $("#right").css('width', (webBodyWidth - 9) + 'px');
-            $(this).addClass("close");
-            */
-            
             $("#left").animate({marginLeft:"-197px"}, "fast");
             $("#right").animate({width: (webBodyWidth - 9) + 'px'}, "fast");
             $(this).addClass("close");

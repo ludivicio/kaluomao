@@ -27,42 +27,40 @@ class ItemAction extends CommonAction {
         import('Class.Category', APP_PATH);
 
         $items_cate = M('item_cate');
-        $cates = $items_cate->where('status = 1')->order(array('order'=>'asc'))->select();
+        $cates = $items_cate->order(array('order'=>'asc'))->select();
         
 
-        //$cates = Category::unlimitForLevel($cates);
+        $cates = Category::unlimitForLevel($cates, '&nbsp;&nbsp;&nbsp;|—&nbsp;');
 
-
-        foreach ($cates as $val) {
-            if ($val['pid'] == 0) {
-                $categories['parent'][] = $val;
-            }else {
-                $categories['child'][$val['pid']][] = $val;
-            }
-        }
-
-        $this->assign('cates_list', $categories);
+        $this->assign('cates', $cates);
 
         $this->display();
     }
     
+    // 添加分类
     public function addCate() {
 
-        $cate_pid = isset($_GET['id']) ? $_GET['id'] : -1;
+        $id = isset($_GET['id']) ? $_GET['id'] : -1;
         
         // 或者用I()方法代替
-        // $cate_pid = I('id', -1, 'intval');
-
+        // $id = I('id', -1, 'intval');
+        
         // 当前选中的分类
-        $this->assign('cate_pid', $cate_pid);
+        $this->assign('cate_pid', $id);
 
+        import('Class.Category', APP_PATH);
+        
         // 读取所有的分类
         $categories = M('item_cate')->select();
+        // 对分类进行递归排序
+        $categories = Category::unlimitForLevel($categories, '&nbsp;&nbsp;&nbsp;|—&nbsp;');
+
         $this->assign('categories', $categories);
 
         $this->display();
     }
 
+    // 添加分类处理
     public function addCateHandle() {
         if (!IS_POST) {
             halt('页面不存在');
@@ -91,19 +89,98 @@ class ItemAction extends CommonAction {
 
     }
 
+    // 编辑分类
     public function editCate() {
+
+        // 获取传入的id
+        $id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+        if($id == -1) {
+            return;
+        }
+
+        $db = M('item_cate');
+
+        // 读取当前分类信息
+        $cate = $db->where(array('id' => $id))->find();
+
+        import('Class.Category', APP_PATH);
+        
+        // 读取所有的分类信息
+        $categories = $db->select();
+        // 对分类进行递归排序
+        $categories = Category::unlimitForLevel($categories, '&nbsp;&nbsp;&nbsp;|—&nbsp;');
+
+        $this->assign('cate', $cate);
+        $this->assign('categories', $categories);
+        
         $this->display();
     }
 
     // 编辑类别处理
     public function editCateHandle() {
-        $this->display();
+
+        if (!IS_POST) {
+            halt('页面不存在');
+        }
+
+        // 获取传入的id
+        $id = isset($_POST['id']) ? $_POST['id'] : -1;
+
+        if($id == -1) {
+            return;
+        }
+
+        $db = M('item_cate');
+
+        $data = array(
+            'name' => $this->_post('name'),
+            'pid' => $this->_post('pid'),
+            'status' => $this->_post('status'),
+            'order' => $this->_post('order'),
+            'seo_title' => $this->_post('seo_title'),
+            'seo_keys' => $this->_post('seo_keys'),
+            'seo_desc' => $this->_post('seo_desc')
+        );
+
+        $result = $db->where(array('id' => $id))->save($data);
+
+        if($result) {
+            $this->success('修改成功', U('Item/category'));
+        } else {
+            $this->error('修改失败', U('Item/category'));
+        }
+
     }
 
 
     // 删除类别处理
     public function delCateHandle() {
-        p($_POST);die;
+        
+        import('Class.Category', APP_PATH);
+        
+        // 获取传入的id
+        $id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+        if($id == -1) {
+            return;
+        }
+
+        $db = M('item_cate');
+
+        $categories = M('item_cate')->select();
+
+        // 获取该类的所有子类ID
+        $ids = Category::getChildIds($categories, $id);
+        $ids[] = $id;
+        
+        // 依次删除
+        foreach($ids as $val) {
+            $db->where(array('id' => $val))->delete(); 
+        }
+
+        $this->success('删除成功', U('Item/category'));
+        
     }
 
 
@@ -132,6 +209,31 @@ class ItemAction extends CommonAction {
         }
 
         $this->redirect('Item/category');
+    }
+
+
+    // 修改分类的状态，使用或禁用
+    public function updateStatus() {
+
+        // 获取传入的id
+        $id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+        if($id == -1) {
+            return;
+        }
+        
+        $db = M('item_cate');
+
+        $status = $db->where(array('id' => $id))->getField('status');
+        $status = ($status == 0 ? 1 : 0);
+        $result = $db->where(array('id' => $id))->setField('status', $status);
+        
+        if($result) {
+            echo json_encode(array('data' => $status));
+        } else {
+            $this->error('状态修改失败', U('Item/category'));
+        }
+        
     }
 
     public function comment() {
