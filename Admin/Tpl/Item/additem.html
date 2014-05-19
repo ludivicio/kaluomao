@@ -1,293 +1,252 @@
-<include file="Common:base" />
+<include file="Common:base"/>
 
 <style type="text/css">
-    body {
-        font-size: 14px; }
-    ol li {
-        margin: 8px
-    }
 
-    table {border:1px solid blue;}
-    table tr td {border:1px solid blue;}
 
-    #con {
-        font-size: 12px; margin: 0px auto; width:100%;
-    }
-
-    #tags {
-        padding: 0px;
-        margin: 0px; 
-        width: 400px; 
-        height: 25px;
-        line-height: 25px;
-    }
-
-    #tags li {
-        float: left; 
-        margin-right: 1px; 
-        list-style-type: none; 
-        height: 25px;
-        line-height: 25px;
-    }
-
-    #tags li a {
-        padding-right: 10px; 
-        padding-left: 10px;  
-        float: left; 
-        padding-bottom: 0px; 
-        color: #999; 
-        padding-top: 0px; 
-        height: 25px; 
-        line-height: 25px;
-        text-decoration: none;
-    }
-
-    #tags li.emptytag {
-        background: none transparent scroll repeat 0% 0%; 
-        width: 4px;
-    }
-    #tags li.selecttag {
-        background-position: left top; 
-        margin-bottom: -2px; 
-        position: relative; 
-        height: 25px;
-    }
-    #tags li.selecttag a {
-        background-position: right top; 
-        color: #000; 
-        line-height: 25px; 
-        height: 25px;
-    }
-    #tagcontent {
-        border-right: #aecbd4 1px solid; 
-        padding-right: 1px; 
-        border-top: #aecbd4 1px solid; 
-        padding-left: 1px; 
-        padding-bottom: 1px; 
-        border-left: #aecbd4 1px solid;
-        padding-top:1px; 
-        border-bottom: #aecbd4 1px solid; 
-        background-color: #fff;
-    }
-    .tagcontent {
-
-        display: none; 
-        
-        width: 100%; 
-        color: #474747; 
- 
-    }
-
-    #tagcontent div.selecttag {
-        display: block
-    }
 </style>
 
 <form id="info_form" action="" method="post" enctype="multipart/form-data">
 
-<div id="con">
-    <div>
-        <ul id="tags" style="float:left">
-            <li>
-                <a onclick="selectTag('tagcontent0',this)" href="javascript:void(0)">基本信息</a> 
-            </li>
-            <li class=selecttag>
-                <a onclick="selectTag('tagcontent1',this)" href="javascript:void(0)">其他信息</a> 
-            </li>
-        </ul>
-        <div style="float:right"><input type="submit" value="发布" /></div>
-    </div>
-    <div class="clear"></div>
+    <div class="tab-wrapper">
+        <div>
+            <ul id="tabs" style="float:left">
+                <li class="current-tab">
+                    <a onclick="selectTag('base_info',this)" href="javascript:void(0)">基本信息</a>
+                </li>
+                <li>
+                    <a onclick="selectTag('other_info',this)" href="javascript:void(0)">其他信息</a>
+                </li>
+            </ul>
 
-    <div id="tagcontent">
-        <div class="tagcontent" id="tagcontent0" >
-
-            <table style="width:100%">
-                <tr>
-                    <td >
-                        <table width="100%" cellspacing="0" >
-                            <tr>
-                                <th style="width: 60px;">标题</th>
-                                <td>
-                                    <input type="text" name="title" id="" class=""  value="" style="width:95%" />
-                                </td>
-                                <td width="150px">
-                                    <input type="hidden" value="{$info.colors}" name="colors" id="title_color">
-                                    <a href="javascript:;" >标题颜色</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>标签</th>
-                                <td>
-                                    <input type="text" name="tags" style="width:90%" value="{$tags}"/>
-                                    <input type="button" style="width:100px" value="自动获取" name="tags_btn" class="btn"/></td>
-                                <td>图片预览</td>
-                            </tr>
-                            <tr>
-                                <th>价格</th>
-                                <td><label>原价格</label><input type="text" name="old_prices" class="input-text" size="15" value="{$info.prices}"/><label>折后价</label><input type="text" name="new_prices" class="input-text" size="15" value="{$info.prices}"/></td>
-                                <td rowspan="4"></td>
-                            </tr>
-                            <tr>
-                                <th>链接</th>                                        
-                                <td>
-                                    <textarea name="url" rows="3" value=""></textarea>                                  
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>上传图片</th>
-                                <td>                                    
-                                    <input type="file" name="img" class="input-text"  style="width:200px;" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>远程图片</th>
-                                <td>                                    
-                                    <input type="text" name="img" class="input-text"  style="width:200px;" />
-                                </td>
-                            </tr>
-
-                            
-                        </table>                        
-                    </td>
-                    <td width="250px" style="vertical-align: top">
-                        <table width="100%" cellspacing="0" class="table_form inner_table">
-
-                            <tr>
-                                <th width="120px">所属栏目</th>
-                                <td>
-                                    <select name="mall_id">
-                                        <option value="0">--选择栏目--</option>
-                                    </select>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <th>商品来源</th>
-                                <td>
-                                    <select name="mall_id">
-                                        <option value="0">--选择来源--</option>
-                                    </select>
-                                </td>                                    
-                            </tr>
-                            <tr><th>作者</th>
-                                <td><input type="text" name="uname" class="input-text" size="15" /><a href="#">随机</a></td>
-                            </tr>
-                            <tr><th>热门</th>
-                                <td>
-                                <label><input type="radio" name="is_hot" class="radio_style" value="1" <if condition="$info['is_hot'] eq 1">checked="checked"</if>/> 是</label>&nbsp;&nbsp;
-                                <label><input type="radio" name="is_hot" class="radio_style" value="0"<if condition="$info['is_hot'] eq 0">checked="checked"</if>/>否</label>
-                                </td>
-                            </tr>
-                            <tr><th>推荐</th>
-                                <td>
-                                <label><input type="radio" name="is_recommend" class="radio_style" value="1" <if condition="$info['is_recommend'] eq 1">checked="checked"</if>/> 已推荐</label>&nbsp;&nbsp;
-                                <label><input type="radio" name="is_recommend" class="radio_style" value="0"<if condition="$info['is_recommend'] eq 0">checked="checked"</if>/>未推荐</label>
-                                </td>
-                            </tr>
-                            <tr><th>审核状态</th>
-                                <td>
-                                    <label><input type="radio" name="status" class="radio_style" value="1" <if condition="$info['status'] eq 1">checked="checked"</if>/> 已通过</label>&nbsp;&nbsp;
-                                    <label><input type="radio" name="status" class="radio_style" value="0" <if condition="$info['status'] eq 0">checked="checked"</if>/>未审核</label>
-                                
-                                </td>
-                            </tr>
-                            <tr><th>定时发布</th>
-                                <td>
-                                    <input type="text" name="post_time" id="J_time_start" class="date J_date_picker" size="22" value="{:date('Y-m-d H:i',time())}"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-
-                        <textarea name="info" id="info" style="width:100%;height:350px;resize:none;">{$info.info}</textarea>
-
-
-                    </td>
-                </tr>
-            </table>
+            <div style="float:right">
+                <input type="submit" value="发布"/>
+            </div>
         </div>
-        <div class="tagcontent selecttag" id="tagcontent1">
 
-            <table style="width:100%">
-                <tr>
-                    <td >
-                        <table width="100%" cellspacing="0" >
-                            <tr>
-                            <th>赞</th>
-                                <td>
-                                    <input type="text" name="img" class="input-text"  />
-                                </td>
-                            </tr>
-                            <tr><th>踩</th>
-                                <td>
-                                    
-                                    <input type="text" name="img" class="input-text"  />
-                                </td>
-                            </tr>
-                            <tr><th>收藏数</th>
-                                <td>
-                                    <input type="text" name="img" class="input-text"  />
-                                </td>
-                            </tr>
-                            <tr><th>点击量</th>
-                                <td>
-                                    <input type="text" name="img" class="input-text"  />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>SEO TITLE:</th>
-                                <td colspan="2">
-                                    <input type="text" name="tags" id="J_tags" class="input-text" size="65" value="{$tags}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>SEO KEYS:</th>
-                                <td colspan="2"><input type="text" name="old_prices" class="input-text" size="15" value="{$info.prices}"/></td>
-                            </tr>
-                            <tr>
-                                <th>SEO DESCRIPTION</th>                                        
-                                <td colspan="2">
-                                    <textarea name="url" rows="2" value=""></textarea>                                  
-                                </td>
-                            </tr>
+        <div class="clear"></div>
+
+        <div class="tab-container">
+
+            <div class="tab-content curr-content" id="base_info">
+
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            <table width="100%" cellspacing="0">
+                                <tr>
+                                    <th style="width: 60px;">标题</th>
+                                    <td>
+                                        <input type="text" name="title" id="" class="" value="" style="width:95%"/>
+                                    </td>
+                                    <td width="150px">
+                                        <input type="hidden" value="{$info.colors}" name="colors" id="title_color">
+                                        <a href="javascript:;">标题颜色</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>标签</th>
+                                    <td>
+                                        <input type="text" name="tags" style="width:90%" value="{$tags}"/>
+                                        <input type="button" style="width:100px" value="自动获取" name="tags_btn"
+                                               class="btn"/></td>
+                                    <td>图片预览</td>
+                                </tr>
+                                <tr>
+                                    <th>价格</th>
+                                    <td><label>原价格</label><input type="text" name="old_prices" class="input-text"
+                                                                 size="15"
+                                                                 value="{$info.prices}"/><label>折后价</label><input
+                                            type="text" name="new_prices" class="input-text" size="15"
+                                            value="{$info.prices}"/></td>
+                                    <td rowspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <th>链接</th>
+                                    <td>
+                                        <textarea name="url" rows="3" value=""></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>上传图片</th>
+                                    <td>
+                                        <input type="file" name="img" class="input-text" style="width:200px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>远程图片</th>
+                                    <td>
+                                        <input type="text" name="img" class="input-text" style="width:200px;"/>
+                                    </td>
+                                </tr>
 
 
-                        </table>                        
-                    </td>
+                            </table>
+                        </td>
+                        <td width="250px" style="vertical-align: top">
+                            <table width="100%" cellspacing="0" class="table_form inner_table">
 
-                </tr>
+                                <tr>
+                                    <th width="120px">所属栏目</th>
+                                    <td>
+                                        <select name="mall_id">
+                                            <option value="0">--选择栏目--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>商品来源</th>
+                                    <td>
+                                        <select name="mall_id">
+                                            <option value="0">--选择来源--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>作者</th>
+                                    <td><input type="text" name="uname" class="input-text" size="15"/><a href="#">随机</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>热门</th>
+                                    <td>
+                                        <label><input type="radio" name="is_hot" class="radio_style" value="1"
+                                            <if condition="$info['is_hot'] eq 1">checked="checked"</if>
+                                            /> 是</label>&nbsp;&nbsp;
+                                        <label><input type="radio" name="is_hot" class="radio_style" value="0"
+                                            <if condition="$info['is_hot'] eq 0">checked="checked"</if>
+                                            />否</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>推荐</th>
+                                    <td>
+                                        <label><input type="radio" name="is_recommend" class="radio_style" value="1"
+                                            <if condition="$info['is_recommend'] eq 1">checked="checked"</if>
+                                            /> 已推荐</label>&nbsp;&nbsp;
+                                        <label><input type="radio" name="is_recommend" class="radio_style" value="0"
+                                            <if condition="$info['is_recommend'] eq 0">checked="checked"</if>
+                                            />未推荐</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>审核状态</th>
+                                    <td>
+                                        <label><input type="radio" name="status" class="radio_style" value="1"
+                                            <if condition="$info['status'] eq 1">checked="checked"</if>
+                                            /> 已通过</label>&nbsp;&nbsp;
+                                        <label><input type="radio" name="status" class="radio_style" value="0"
+                                            <if condition="$info['status'] eq 0">checked="checked"</if>
+                                            />未审核</label>
 
-            </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>定时发布</th>
+                                    <td>
+                                        <input type="text" name="post_time" id="J_time_start" class="date J_date_picker"
+                                               size="22" value="{:date('Y-m-d H:i',time())}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+
+                            <textarea name="info" id="info"
+                                      style="width:100%;height:350px;resize:none;">{$info.info}</textarea>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="tab-content" id="other_info">
+
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            <table width="100%" cellspacing="0">
+                                <tr>
+                                    <th>赞</th>
+                                    <td>
+                                        <input type="text" name="img" class="input-text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>踩</th>
+                                    <td>
+
+                                        <input type="text" name="img" class="input-text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>收藏数</th>
+                                    <td>
+                                        <input type="text" name="img" class="input-text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>点击量</th>
+                                    <td>
+                                        <input type="text" name="img" class="input-text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>SEO TITLE:</th>
+                                    <td colspan="2">
+                                        <input type="text" name="tags" id="J_tags" class="input-text" size="65"
+                                               value="{$tags}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>SEO KEYS:</th>
+                                    <td colspan="2"><input type="text" name="old_prices" class="input-text" size="15"
+                                                           value="{$info.prices}"/></td>
+                                </tr>
+                                <tr>
+                                    <th>SEO DESCRIPTION</th>
+                                    <td colspan="2">
+                                        <textarea name="url" rows="2" value=""></textarea>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
 
         </div>
-        <div class="tagcontent" id="tagcontent2">自适应宽度的标签内容。</div>
     </div>
-</div>
 
 </form>
 
 
-
 <script type="text/javascript">
-    function selectTag(showContent,selfObj){
+
+    function selectTag(showContent, selfObj) {
         // 标签
-        var tag = document.getElementById("tags").getElementsByTagName("li");
+        var tag = document.getElementById("tabs").getElementsByTagName("li");
+
         var len = tag.length;
-        for(i = 0; i < len; i++){
+        for (var i = 0; i < len; i++) {
             tag[i].className = "";
         }
-        selfObj.parentNode.className = "selecttag";
-        // 标签内容
-        for(i = 0; j = document.getElementById("tagcontent" + i); i++){
-            j.style.display = "none";
-        }
+
+        document.getElementById("base_info").style.display = "none";
+        document.getElementById("other_info").style.display = "none";
+
+        selfObj.parentNode.className = "current-tab";
         document.getElementById(showContent).style.display = "block";
     }
 </script>
 
 
-
-                                                                                <include file="Common:bottom" />
+<include file="Common:bottom"/>
