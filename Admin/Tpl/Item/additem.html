@@ -1,7 +1,8 @@
 <include file="Common:base"/>
 
 <style type="text/css">
-
+table {  }
+table td {}
 
 </style>
 
@@ -34,61 +35,67 @@
                         <td>
                             <table width="100%" cellspacing="0">
                                 <tr>
-                                    <th style="width: 60px;">标题</th>
+                                    <th>标题</th>
                                     <td>
-                                        <input type="text" name="title" id="" class="" value="" style="width:95%"/>
-                                    </td>
-                                    <td width="150px">
+                                        <input type="text" name="title" id="title" style="width:95%" />
+                                        
                                         <input type="hidden" value="{$info.colors}" name="colors" id="title_color">
-                                        <a href="javascript:;">标题颜色</a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn">颜色</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>标签</th>
                                     <td>
-                                        <input type="text" name="tags" style="width:90%" value="{$tags}"/>
-                                        <input type="button" style="width:100px" value="自动获取" name="tags_btn"
-                                               class="btn"/></td>
-                                    <td>图片预览</td>
+                                        <input type="text" name="tag" style="width:95%" />
+                                    </td>
+                                    <td>
+                                        <input type="button" value="自动获取" name="auto_tag" class="btn"/>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>价格</th>
-                                    <td><label>原价格</label><input type="text" name="old_prices" class="input-text"
-                                                                 size="15"
-                                                                 value="{$info.prices}"/><label>折后价</label><input
-                                            type="text" name="new_prices" class="input-text" size="15"
-                                            value="{$info.prices}"/></td>
-                                    <td rowspan="4"></td>
+                                    <td colspan="2">
+                                        &nbsp;<label>原价格:</label>&nbsp;
+                                        <input type="text" name="old_prices" size="15" />
+                                        &nbsp;<label>折后价:</label>&nbsp;
+                                        <input type="text" name="new_prices" size="15" />
+                                    </td>
+                                    
                                 </tr>
                                 <tr>
                                     <th>链接</th>
                                     <td>
-                                        <textarea name="url" rows="3" value=""></textarea>
+                                        <textarea name="url" rows="3" style="width:95%"></textarea>
+                                    </td>
+                                    <td rowspan="3" >
+                                        <div style="width:100%;height:150px;border: 1px solid #CCCCCC;">
+                                            <img src="" name="thrumbs" />
+                                        </div>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>上传图片</th>
                                     <td>
-                                        <input type="file" name="img" class="input-text" style="width:200px;"/>
+                                        <input type="file" name="img" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>远程图片</th>
                                     <td>
-                                        <input type="text" name="img" class="input-text" style="width:200px;"/>
+                                        <input type="text" name="img" style="width:95%;"/>
                                     </td>
                                 </tr>
-
-
                             </table>
                         </td>
-                        <td width="250px" style="vertical-align: top">
+                        <td width="280px" style="vertical-align: top">
                             <table width="100%" cellspacing="0" class="table_form inner_table">
-
                                 <tr>
-                                    <th width="120px">所属栏目</th>
+                                    <th width="100px">所属栏目</th>
                                     <td>
-                                        <select name="mall_id">
+                                        <select name="mall_id" style="width:100%">
                                             <option value="0">--选择栏目--</option>
                                         </select>
                                     </td>
@@ -96,55 +103,62 @@
                                 <tr>
                                     <th>商品来源</th>
                                     <td>
-                                        <select name="mall_id">
+                                        <select name="mall_id" style="width:100%">
                                             <option value="0">--选择来源--</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>作者</th>
-                                    <td><input type="text" name="uname" class="input-text" size="15"/><a href="#">随机</a>
+                                    <td>
+                                        <input type="text" name="uname" size="15" value="{$account}"/>
+                                        &nbsp;&nbsp;<a href="#">随机</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>热门</th>
                                     <td>
-                                        <label><input type="radio" name="is_hot" class="radio_style" value="1"
-                                            <if condition="$info['is_hot'] eq 1">checked="checked"</if>
-                                            /> 是</label>&nbsp;&nbsp;
-                                        <label><input type="radio" name="is_hot" class="radio_style" value="0"
-                                            <if condition="$info['is_hot'] eq 0">checked="checked"</if>
-                                            />否</label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="is_hot" value="1"/> 是
+                                        </label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="is_hot" checked="checked" value="0" />否
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>推荐</th>
                                     <td>
-                                        <label><input type="radio" name="is_recommend" class="radio_style" value="1"
-                                            <if condition="$info['is_recommend'] eq 1">checked="checked"</if>
-                                            /> 已推荐</label>&nbsp;&nbsp;
-                                        <label><input type="radio" name="is_recommend" class="radio_style" value="0"
-                                            <if condition="$info['is_recommend'] eq 0">checked="checked"</if>
-                                            />未推荐</label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="is_recommend" value="1" /> 已推荐
+                                        </label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="is_recommend" value="0" checked="checked"/>未推荐
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>审核状态</th>
                                     <td>
-                                        <label><input type="radio" name="status" class="radio_style" value="1"
-                                            <if condition="$info['status'] eq 1">checked="checked"</if>
-                                            /> 已通过</label>&nbsp;&nbsp;
-                                        <label><input type="radio" name="status" class="radio_style" value="0"
-                                            <if condition="$info['status'] eq 0">checked="checked"</if>
-                                            />未审核</label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="status" value="1" /> 已通过
+                                        </label>
+                                        &nbsp;&nbsp;
+                                        <label>
+                                            <input type="radio" name="status" value="0" checked="checked" />未审核
+                                        </label>
 
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>定时发布</th>
                                     <td>
-                                        <input type="text" name="post_time" id="J_time_start" class="date J_date_picker"
-                                               size="22" value="{:date('Y-m-d H:i',time())}"/>
+                                        <input type="text" name="post_time" size="22" value="{:date('Y-m-d H:i',time())}"/>
                                     </td>
                                 </tr>
                             </table>
@@ -172,7 +186,7 @@
                                 <tr>
                                     <th>赞</th>
                                     <td>
-                                        <input type="text" name="img" class="input-text"/>
+                                        <input type="text" name="img" style="width:100%"/>
                                     </td>
                                 </tr>
                                 <tr>
