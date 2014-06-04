@@ -15,21 +15,29 @@ body {
 li { list-style:none; }
 a { text-decoration:none; }
 
-input{ vertical-align: middle;}
-.input { height: 20px; }
+.input {  }
 input, textarea, select {
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
-    /*box-shadow: 2px 2px 2px #F0F0F0 inset;*/
     font-family: inherit;
     font-size: 100%;
     line-height: 20px;
-    padding: 5px;
     margin: 0;
+    padding:5px;
     vertical-align: middle;
 }
+
+
+div.input {
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #CCCCCC;
+    padding:5px;
+}
+
 option{ height: 20px;}
 select {text-align: center}
+
 .clear { clear:both; }
 .fr{ float: right;}
 .line {
@@ -55,18 +63,18 @@ table tr th {
     height: 30px;
     text-align: center;
     background-color:#0088cc;
+    padding: 3px;
 }
 
 table tr {
     height:20px;
     line-height: 20px;
-
 }
 
 table tr td {
     vertical-align: middle;
     line-height: 20px;
-    padding:3px;
+    padding: 3px;
 }
 
 table td.title {
@@ -80,16 +88,18 @@ table td.title {
 button {
     border: 1px solid #CCCCCC;
     text-align: center;
-    padding: 3px 15px;
+    padding: 5px 15px;
 }
 
 .btn {
+    vertical-align: middle;
     border: 1px solid #CCCCCC;
     text-align: center;
     background-color: #0055FF;
     color: #FFFFFF;
     font-size: 16px;
     cursor: pointer;
+    padding: 3px 15px;
 }
 
 .btn-confirm {
