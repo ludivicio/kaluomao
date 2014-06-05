@@ -19,9 +19,38 @@ class ItemAction extends CommonAction {
     }
     
     public function addItem() {
+
+        import('Class.Category', APP_PATH);
+
+        // 读取所有的分类
+        $categories = M('item_cate')->select();
+        // 对分类进行递归排序
+        $categories = Category::unlimitForLevel($categories, '&nbsp;&nbsp;&nbsp;|—&nbsp;');
+
+        $this->assign('categories', $categories);
+
+
         $this->display();
     }
-    
+
+    public function addItemHandle() {
+
+        p($_POST);
+
+
+
+        die;
+
+
+        $this->display('index');
+    }
+
+    public function _upload() {
+
+    }
+
+
+
     public function category() {
 
         import('Class.Category', APP_PATH);

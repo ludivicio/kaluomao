@@ -159,7 +159,7 @@ div.action {
     color: #000;
     line-height: 25px;
     height: 25px;
-    background-color: #CC5252;
+    background-color: #AECBD5;
 }
 
 .tab-content {
@@ -178,6 +178,19 @@ div.action {
     display: block
 }
 
+#publish {
+    padding: 0 20px;
+    color: #000;
+    height: 24px;
+    line-height: 24px;
+    text-decoration: none;
+    display:block;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #CC5252;
+    margin-right:5px;
+    cursor:pointer;
+}
 
 
 
