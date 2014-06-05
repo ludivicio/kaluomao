@@ -37,8 +37,30 @@ class ItemAction extends CommonAction {
 
         p($_POST);
 
+        $data = array();
 
+        p($_FILES);
 
+        //保存上传图片
+        if ($_FILES['local_image']['name'] != '') {
+
+            $dir = './Uploads/items/';
+            if (!file_exists($dir)) {
+                mkdir($dir);
+            }
+
+            $dir = $dir . date("Ymd");
+
+            mkdir($dir);
+
+            $upload_info = $this->upload($dir .'/');
+            // $this->upload_item($upload_info[0]['savepath'].$upload_info[0]['savename'], $upload_info[0]['savename']);
+            $data['image'] = $dir . '/' . $upload_info['0']['savename'];
+
+        }
+
+        p($data);
+        echo WEB_ROOT;
         die;
 
 

@@ -1,19 +1,34 @@
 <include file="Common:base"/>
 
-<style type="text/css">
-    table {
-    }
-
-    table td {
-    }
-
-</style>
-
 
 <script>
     KindEditor.ready(function (K) {
         window.editor = K.create('#info');
     });
+
+
+    KindEditor.ready(function(K) {
+        var editor1 = K.create('#info', {
+            uploadJson : '__PUBLIC__/assets/kindeditor/php/upload_json.php',
+            fileManagerJson : '__PUBLIC__/assets/kindeditor/php/file_manager_json.php',
+            allowFileManager : true,
+            afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                    self.sync();
+                    K('#myform')[0].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    K('#myform')[0].submit();
+                });
+            }
+        });
+        prettyPrint();
+    });
+
+
+
 </script>
 
 
@@ -121,7 +136,7 @@
                         <tr>
                             <td align="right"><strong>上传图片</strong></td>
                             <td>
-                                <input type="file" name="image" onchange="preview_image(this, 'preview')"/>
+                                <input type="file" name="local_image" onchange="preview_image(this, 'preview')"/>
                             </td>
                         </tr>
                         <tr>

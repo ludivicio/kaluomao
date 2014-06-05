@@ -76,7 +76,45 @@ class CommonAction extends Action {
             return $value;
         }
     }
-    
+
+
+    /**
+     * 图片上传方法
+     * @param $savePath
+     * @param array $thumb
+     * @return array
+     */
+    public function upload($savePath, $thumb = array()) {
+
+        import("ORG.Net.UploadFile");
+
+        $upload = new UploadFile();
+        $upload->maxSize  = 2097152;// 设置附件上传大小
+        $upload->savePath = $savePath;// 设置附件上传目录
+        $upload->saveRule = 'uniqid';
+        $upload->allowExts  = array('jpg', 'png', 'jpeg');// 设置附件上传类型
+
+        if ($thumb) {
+            $upload->thumb = true;
+            $upload->thumbMaxWidth = $thumb['width'];
+            $upload->thumbMaxHeight = $thumb['height'];
+            $upload->thumbPrefix = 's_';
+            $upload->thumbRemoveOrigin = true;
+        }
+
+        if(!$upload->upload()) {
+            // 上传错误提示错误信息
+            $this->error($upload->getErrorMsg());
+        }else{
+            // 上传成功 获取上传文件信息
+            $info =  $upload->getUploadFileInfo();
+        }
+        return $info;
+    }
+
+
+
+
 }
 
 ?>
