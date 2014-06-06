@@ -33,31 +33,181 @@ class ItemAction extends CommonAction {
         $this->display();
     }
 
-    public function addItemHandle() {
+    public function addItemHandle()
+    {
 
         p($_POST);
 
-        $data = array();
+        // $id = I('id', -1, 'intval');
 
-        p($_FILES);
 
-        //保存上传图片
-        if ($_FILES['local_image']['name'] != '') {
 
-            $dir = './Uploads/items/';
-            if (!file_exists($dir)) {
-                mkdir($dir);
-            }
-
-            $dir = $dir . date("Ymd");
-
-            mkdir($dir);
-
-            $upload_info = $this->upload($dir .'/');
-            // $this->upload_item($upload_info[0]['savepath'].$upload_info[0]['savename'], $upload_info[0]['savename']);
-            $data['image'] = $dir . '/' . $upload_info['0']['savename'];
-
+        // 标题
+        $title = I('title');
+        if ($title == '') {
+            $this->error('标题不能为空！');
         }
+
+        // 商品连接
+        $url = I('url');
+        if ($url == '') {
+            $this->error('链接不能为空！');
+        }
+
+        // 发布商品的用户
+        $uid = I('uid');
+        $uname = I('uname');
+        if($uname == '') {
+            // 从数据库中随机读取一个用户
+            $uname = '张三';
+            $uid = '2';
+        }
+
+
+        // 远程图片地址
+        $image = I('remote_url');
+        if($image == '') {
+
+            //保存上传图片
+            if ($_FILES['local_image']['name'] != '') {
+
+                $dir = './Uploads/items/';
+                if (!file_exists($dir)) {
+                    mkdir($dir);
+                }
+
+                $dir = $dir . date("Ymd");
+
+                mkdir($dir);
+
+                $upload_info = $this->upload($dir .'/');
+                $image = $dir . '/' . $upload_info['0']['savename'];
+
+            }
+        }
+
+
+
+
+        // 来自哪个网站
+        $fid = I('from', 0, 'intval');
+        if ($fid == 0) {
+            $this->error('请选择来源！');
+        }
+
+        // 分类ID
+        $cid = I('cid', 0, 'intval');
+        if ($cid == 0) {
+            $this->error('请选择分类！');
+        }
+
+
+
+
+        // 原价
+        $old_price = I('old_price', -1, 'intval');
+
+        // 折后价
+        $price = I('price', -1, 'intval');
+
+        if($old_price < 0 || $price < 0) {
+            $this->error('价钱填写错误！');
+        }
+
+        // 是否热门
+        $is_hot = I('is_hot', 0, 'intval');
+
+        // 是否推荐
+        $is_recommend = I('is_recommend', 0, 'intval');
+
+        // 审核状态
+        $status = I('status', 0, 'intval');
+
+        // 赞
+        $good = I('good', 0, 'intval');
+
+        // 踩
+        $bad = I('bad', 0, 'intval');
+
+        // 收藏数
+        $favs = I('favs', 0, 'intval');
+
+        // 点击量
+        $hits = I('hits', 0, 'intval');
+
+
+        // 商品标签， 需要分割并过滤
+        $tags = I('tags');
+
+
+        // 文章内容
+        $info = I('info');
+
+        // SEO TITLE
+        $seo_title = I('seo_title');
+
+        // SEO KEYS
+        $seo_keys = I('seo_keys');
+
+        // SEO DESCRIPTION
+        $seo_desc = I('seo_desc');
+
+/*
+
+    title  cid  fid  tcolor  url  price  old_price  info  image  uid  uname
+    add_time  last_time  good  bad  favs  hits  order  hot  recommend  comments
+    localimage  status  seo_title seo_keys seo_desc
+
+*/
+        $time = time();
+
+
+
+        $data = array(
+
+            'title' => $title,
+            'cid' => $cid,
+            'fid' => $fid,
+            // 标题颜色
+            'tcolor' => I('color'),
+
+            'url' => $url,
+            'price' => $price,
+            'old_price' => $old_price,
+
+
+            'image' => $image,
+            'uid' => $uid,
+            'uname' => $uname,
+
+            // 添加时间
+            'add_time' => $time,
+            // 最后修改的时间
+            'last_time' => $time,
+            'good' => $good,
+            'bad' => $bad,
+            'favs' => $favs,
+            'hits' => $hits,
+            'hot' => $is_hot,
+            'recommend' => $is_recommend,
+            'comments' => "",
+
+
+
+
+
+
+        );
+
+
+
+
+
+
+
+
+
+
 
         p($data);
         echo WEB_ROOT;
