@@ -35,25 +35,22 @@ class ItemAction extends CommonAction {
 
     public function addItemHandle()
     {
+        if (!IS_POST) {
+            halt('页面不存在');
+        }
 
-        p($_POST);
-
-        // $id = I('id', -1, 'intval');
-
-
+        // p($_POST);
 
         // 标题
         $title = I('title');
         if ($title == '') {
             $this->error('标题不能为空！');
         }
-
         // 商品连接
         $url = I('url');
         if ($url == '') {
             $this->error('链接不能为空！');
         }
-
         // 发布商品的用户
         $uid = I('uid');
         $uname = I('uname');
@@ -63,36 +60,46 @@ class ItemAction extends CommonAction {
             $uid = '2';
         }
 
-
         // 远程图片地址
-        $image = I('remote_url');
+        $image = I('remote_image');
+        $local_image = I('save_image');
         if($image == '') {
-
             //保存上传图片
             if ($_FILES['local_image']['name'] != '') {
-
                 $dir = './Uploads/items/';
                 if (!file_exists($dir)) {
                     mkdir($dir);
                 }
-
                 $dir = $dir . date("Ymd");
-
                 mkdir($dir);
-
                 $upload_info = $this->upload($dir .'/');
                 $image = $dir . '/' . $upload_info['0']['savename'];
-
+                // 从本地上传图片的话，localimage = TRUE
+                $local_image = 1;
+            } else {
+                $local_image = 0;
+            }
+        } else {
+            // 选中了“保存到本地”选项
+            if($local_image != '') {
+                // 下载图片，并返回保存的路径
+                $temp_image = $this->download_image($image);
+                echo 'temp_image: ' . $temp_image;
+                if($temp_image != '') {
+                    $image = $temp_image;
+                    $local_image = 1;
+                } else {
+                    $local_image = 0;
+                }
+            } else {
+                $local_image = 0;
             }
         }
-
-
-
 
         // 来自哪个网站
         $fid = I('from', 0, 'intval');
         if ($fid == 0) {
-            $this->error('请选择来源！');
+           // $this->error('请选择来源！');
         }
 
         // 分类ID
@@ -100,83 +107,85 @@ class ItemAction extends CommonAction {
         if ($cid == 0) {
             $this->error('请选择分类！');
         }
-
-
-
-
         // 原价
         $old_price = I('old_price', -1, 'intval');
-
         // 折后价
         $price = I('price', -1, 'intval');
-
         if($old_price < 0 || $price < 0) {
             $this->error('价钱填写错误！');
         }
 
         // 是否热门
         $is_hot = I('is_hot', 0, 'intval');
-
         // 是否推荐
         $is_recommend = I('is_recommend', 0, 'intval');
-
         // 审核状态
         $status = I('status', 0, 'intval');
-
         // 赞
         $good = I('good', 0, 'intval');
-
         // 踩
         $bad = I('bad', 0, 'intval');
-
         // 收藏数
         $favs = I('favs', 0, 'intval');
-
         // 点击量
         $hits = I('hits', 0, 'intval');
-
+        // 排序
+        $order = I('order', 0, 'intval');
 
         // 商品标签， 需要分割并过滤
         $tags = I('tags');
+        if ($tags) {
+            //标签不存在则添加
+            $tags_arr = explode(' ', $_POST['tags']);
+            $tags_arr = array_unique($tags_arr);
 
+            /*
+            foreach ($tags_arr as $tag) {
+                $isset_id = $items_tags->field('id')->where("name='".$tag."' and pid='".$data['cid']."' and is_del=0")->find();
+                if ($isset_id) {
+                    $items_tags_item->add(array(
+                        'item_id' => $id,
+                        'tag_id' => $isset_id['id'],
+                    ));
+                    $items_tags->where("id='".$isset_id['id']."'")->setInc('item_nums'); //标签item_nums加1
+                } else {
+                    $tag_id = $items_tags->add(array('name' => $tag));
+                    $items_tags_item->add(array(
+                        'item_id' => $id,
+                        'tag_id' => $tag_id
+                    ));
+                    $items_tags->where("id='".$tag_id."'")->setInc('item_nums'); //标签item_nums加1
+                }
+            }
+            */
+        }
 
-        // 文章内容
+        // 文章内容, 需要对内容进行过滤
         $info = I('info');
-
         // SEO TITLE
         $seo_title = I('seo_title');
-
         // SEO KEYS
         $seo_keys = I('seo_keys');
-
         // SEO DESCRIPTION
         $seo_desc = I('seo_desc');
 
-/*
 
-    title  cid  fid  tcolor  url  price  old_price  info  image  uid  uname
-    add_time  last_time  good  bad  favs  hits  order  hot  recommend  comments
-    localimage  status  seo_title seo_keys seo_desc
-
-*/
         $time = time();
-
-
 
         $data = array(
 
             'title' => $title,
             'cid' => $cid,
             'fid' => $fid,
+
             // 标题颜色
             'tcolor' => I('color'),
 
             'url' => $url,
             'price' => $price,
             'old_price' => $old_price,
-
-
             'image' => $image,
+            'localimage'=> $local_image,
             'uid' => $uid,
             'uname' => $uname,
 
@@ -184,37 +193,36 @@ class ItemAction extends CommonAction {
             'add_time' => $time,
             // 最后修改的时间
             'last_time' => $time,
+
             'good' => $good,
             'bad' => $bad,
             'favs' => $favs,
             'hits' => $hits,
             'hot' => $is_hot,
             'recommend' => $is_recommend,
-            'comments' => "",
+            'status' => $status,
+            'order' => $order,
 
+            // 评论数
+            'comments' => 0,
+            'seo_title' => $seo_title,
+            'seo_keys' => $seo_keys,
+            'seo_desc' => $seo_desc,
 
-
-
-
-
+            // 商品正文
+            'info' => $info
         );
 
-
-
-
-
-
-
-
-
-
-
         p($data);
-        echo WEB_ROOT;
+
         die;
 
+        if(M('item')->add($data)) {
+            $this->success('添加成功', U('Item/index'));
+        } else {
+            $this->error('添加失败');
+        }
 
-        $this->display('index');
     }
 
     public function _upload() {
