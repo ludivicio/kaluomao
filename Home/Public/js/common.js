@@ -1,12 +1,41 @@
 
 
-var maxW = 180;
-var maxH = 180;
+
+
+
+/**
+ * 缩略图等比例缩放
+ */
+function resizeThumbImage(obj) {
+    var maxW = 75;
+    var maxH = 75;
+    resizeImage(obj, maxW, maxH);
+}
+
+/**
+ * 商城图片等比例缩放
+ */
+function resizeMallImage(obj) {
+    var maxW = 90;
+    var maxH = 45;
+    resizeImage(obj, maxW, maxH);
+}
+
+/**
+ * 预览图等比例缩放
+ */
+function resizePreviewImage(obj) {
+    var maxW = 180;
+    var maxH = 180;
+    resizeImage(obj, maxW, maxH);
+}
+
+
 
 /**
  * 根据比例重新设置图片的宽和高
  */
-function resizeImage(obj) {
+function resizeImage(obj, maxW, maxH) {
     if (obj != null) {
     	imageObject = obj;
     }

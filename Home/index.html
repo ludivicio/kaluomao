@@ -12,9 +12,11 @@
 
 	<script type="text/javascript">
 
-		// 导航固定到网页顶部
-		$(document).ready( function() {
-		    $('.cate').smint();
+		$(function(){
+			
+			// 导航固定到网页顶部
+			$('.cate').smint();
+
 		});
 
 	</script>
@@ -60,12 +62,12 @@
 			<div class="search-wrapper">
 				<div class="col-lg-6 search ">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="输入关键字"> 
+						<input type="text" class="form-control" placeholder="输入关键字">
 						<span class="input-group-btn">
 							<button class="btn btn-default " type="button">搜索</button>
 						</span>
 					</div>
-				</div> 
+				</div>
 
 			</div>
 		</div>
@@ -134,7 +136,7 @@
 						</p>
 					</div>
 					<a href="" class="item-image">
-						<img onload="resizeImage(this);" src="Public/images/item-demo.png" />
+						<img onload="resizePreviewImage(this);" src="Public/images/item-demo.png" />
 					</a>
 					<div class="item-content">
 						<p>
@@ -171,7 +173,7 @@
 						</p>
 					</div>
 					<a href="" class="item-image">
-						<img onload="resizeImage(this);" src="Public/images/item-demo2.jpg" />
+						<img onload="resizePreviewImage(this);" src="Public/images/item-demo2.jpg" />
 					</a>
 					<div class="item-content">
 						<p>
@@ -198,7 +200,7 @@
 
 					</div>
 				</div>
-				
+
 				<div class="item">
 					<div class="item-title">
 						<p>
@@ -209,7 +211,7 @@
 						</p>
 					</div>
 					<a href="" class="item-image">
-						<img onload="resizeImage(this);" src="Public/images/item-demo3.png" />
+						<img onload="resizePreviewImage(this);" src="Public/images/item-demo3.png" />
 					</a>
 					<div class="item-content">
 						<p>
@@ -246,7 +248,7 @@
 						</p>
 					</div>
 					<a href="" class="item-image">
-						<img onload="resizeImage(this);" src="Public/images/item-demo4.jpg" />
+						<img onload="resizePreviewImage(this);" src="Public/images/item-demo4.jpg" />
 					</a>
 					<div class="item-content">
 						<p>
@@ -283,7 +285,7 @@
 						</p>
 					</div>
 					<a href="" class="item-image">
-						<img onload="resizeImage(this);" src="Public/images/item-demo5.jpg" />
+						<img onload="resizePreviewImage(this);" src="Public/images/item-demo5.jpg" />
 					</a>
 					<div class="item-content">
 						<p>
@@ -310,24 +312,39 @@
 					</div>
 				</div>
 
-
-
-
-
-
 			</div>
 			<div class="page">
 				<ul class="pagination">
-					<li><a href="">1</a></li>
-					<li><a href="">2</a></li>
-					<li><a href="">3</a></li>
-					<li><a href="">4</a></li>
-					<li><a href="">5</a></li>
-					<li><a href="">6</a></li>
-					<li><a href="">7</a></li>
-					<li><a href="">8</a></li>
-					<li><a href="">...</a></li>
-					<li><a href="">下一页></a></li>
+					<li>
+						<a href="">1</a>
+					</li>
+					<li>
+						<a href="">2</a>
+					</li>
+					<li>
+						<a href="">3</a>
+					</li>
+					<li>
+						<a href="">4</a>
+					</li>
+					<li>
+						<a href="">5</a>
+					</li>
+					<li>
+						<a href="">6</a>
+					</li>
+					<li>
+						<a href="">7</a>
+					</li>
+					<li>
+						<a href="">8</a>
+					</li>
+					<li>
+						<a href="">...</a>
+					</li>
+					<li>
+						<a href="">下一页></a>
+					</li>
 				</ul>
 
 			</div>
@@ -335,10 +352,159 @@
 		</div>
 		<div class="aside">
 
-			<div class="hit10">点击率排行</div>
-			<div class="hot10">最热门排行</div>
-			<div class="tags">标签</div>
-			<div class="ad">广告</div>
+			<div class="top10">
+				<p class="side-topic">热门商品</p>
+				<ul>
+
+					<li>
+						<div class="side-image">
+							<a href="">
+								<img onload="resizeThumbImage(this);" src="Public/images/item-demo4.jpg" />
+							</a>
+						</div>
+						<div class="side-content">
+							<p>
+								<a href="">喃喃细语在云端：OPPO Find 7 拍照体验</a>
+							</p>
+							<p>20114-06-15 16:55 &nbsp; | &nbsp; 浏览223次</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+
+					<li>
+						<div class="side-image">
+							<a href="">
+								<img onload="resizeThumbImage(this);" src="Public/images/item-demo3.png" />
+							</a>
+						</div>
+						<div class="side-content">
+							<p>
+								<a href="">酷派 大神系列智能机 尖叫促销 大神F1每天444元秒杀</a>
+							</p>
+							<p>20114-06-15 16:55 &nbsp; | &nbsp; 浏览86次</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+
+					<li>
+						<div class="side-image">
+							<a href="">
+								<img onload="resizeThumbImage(this);" src="Public/images/item-demo2.jpg" />
+							</a>
+						</div>
+						<div class="side-content">
+							<p>
+								<a href="">森马 纯色优雅韩版短裙 29.9元包邮</a>
+							</p>
+							<p>20114-06-15 17:14 &nbsp; | &nbsp; 浏览53次</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+
+					<li>
+						<div class="side-image">
+							<a href="">
+								<img onload="resizeThumbImage(this);" src="Public/images/item-demo.png" />
+							</a>
+						</div>
+						<div class="side-content">
+							<p>
+								<a href="">Fujifilm 富士 X-M1 16-50mm微单套机 3499元包邮（3699-200）</a>
+							</p>
+							<p>20114-06-15 19:34 &nbsp; | &nbsp; 浏览23次</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+
+					<li>
+						<div class="side-image">
+							<a href="">
+								<img onload="resizeThumbImage(this);" src="Public/images/item-demo5.jpg" />
+							</a>
+						</div>
+						<div class="side-content">
+							<p>
+								<a href="">多彩（Delux） K9025U 有线键盘 背光游戏键盘 69元包邮</a>
+							</p>
+							<p>20114-06-15 12:34 &nbsp; | &nbsp; 浏览23次</p>
+						</div>
+						<div class="clear"></div>
+					</li>
+
+				</ul>
+
+			</div>
+
+			<div class="business">
+				<p class="side-topic">热门商家</p>
+				<ul>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/dangdangwang.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/guomeizaixian.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/jianyiwang.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/jingdong.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/jumeiyoupin.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/qiaowuqiaoyu.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/shunfengyouxuan.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/suningyigou.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/tianmao.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/weipinhui.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/womaiwang.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/yamaxun.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/yihaodian.jpg" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/yixun.png" alt=""></a>
+					</li>
+					<li>
+						<a href="">
+							<img onload="resizeMallImage(this);" src="Public/images/tmall/yougou.png" alt=""></a>
+					</li>
+				</ul>
+
+			</div>
+
+			<div class="ad">
+				<img src="Public/images/ad.jpg" alt="广告" />
+			</div>
 
 		</div>
 	</div>
