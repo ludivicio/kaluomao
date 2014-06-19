@@ -7,8 +7,8 @@
  * 缩略图等比例缩放
  */
 function resizeThumbImage(obj) {
-    var maxW = 75;
-    var maxH = 75;
+    var maxW = 65;
+    var maxH = 65;
     resizeImage(obj, maxW, maxH);
 }
 
