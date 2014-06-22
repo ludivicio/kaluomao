@@ -58,9 +58,14 @@ return array(
         ),
         
         'Profile' => array(
+            'MallManage' => array(
+                'title' => '商城管理',
+                'Profile/index' => '商城列表',
+                'Profile/addMall' => '添加商城',
+            ),
             'TagManage' => array(
                 'title' => '标签管理',
-                'Profile/index' => '标签列表',
+                'Profile/tag' => '标签列表',
                 'Profile/addTag' => '添加标签',
             ),
             'LinkManage' => array(

@@ -1,6 +1,5 @@
 <include file="Common:base"/>
 
-
 <script>
     KindEditor.ready(function (K) {
         window.editor = K.create('#info');
@@ -31,228 +30,260 @@
 
 </script>
 
-
 <form id="myform" method="post" action="{:U('Item/addItemHandle')}"  enctype="multipart/form-data">
 
-<div class="tab-wrapper">
-<div>
-    <ul id="tabs" style="float:left">
-        <li class="current-tab">
-            <a onclick="selectTag('base_info',this)" href="javascript:void(0)">基本信息</a>
-        </li>
-        <li>
-            <a onclick="selectTag('other_info',this)" href="javascript:void(0)">其他信息</a>
-        </li>
-    </ul>
+    <div class="tab-wrapper">
+        <div>
+            <ul id="tabs" style="float:left">
+                <li class="current-tab">
+                    <a onclick="selectTag('base_info',this)" href="javascript:void(0)">基本信息</a>
+                </li>
+                <li>
+                    <a onclick="selectTag('other_info',this)" href="javascript:void(0)">其他信息</a>
+                </li>
+            </ul>
 
-    <div style="float:right">
-        <input type="submit" value="发布" id="publish"/>
+            <div style="float:right">
+                <input type="submit" value="发布" id="publish"/>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="tab-container">
+
+            <div class="tab-content curr-content" id="base_info">
+
+                <table width="100%" cellspacing="0" >
+                    <tr>
+                        <td width="800px">
+                            <table width="100%" cellspacing="0" >
+                                <tr>
+                                    <td align="right"> <strong>所属栏目</strong>
+                                    </td>
+                                    <td>
+                                        <!-- Belongs Column -->
+                                        <select name="bid">
+                                            <option value="0">==选择栏目==</option>
+                                        </select> <strong style="margin-left:25px">商品来源</strong>
+                                        <select name="mid">
+                                            <option value="0">==选择来源==</option>
+                                            <foreach name="malls" item="v">
+                                                <option value="{$v.id}">{$v.name}</option>
+                                            </foreach>
+                                        </select>
+
+                                        <strong style="margin-left:25px">商品分类</strong>
+                                        <select name="cid">
+                                            <option value="0">==选择分类==</option>
+                                            <foreach name="categories" item="v">
+                                                <option value="{$v.id}">{$v.html}{$v.name}</option>
+                                            </foreach>
+                                        </select>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="right">
+                                        <strong>标题</strong>
+                                    </td>
+                                    <td>
+                                        <div style="float:left;">
+                                            <span>
+                                                <input type="text" name="title" style="width:400px"/>
+                                                <input type="text" name="price" size="30"/>
+                                                <strong>(
+                                                    <label style="color:#FF0000;">*</label>
+                                                    )</strong> 
+                                            </span>
+                                        </div>
+                                        <div class="color" style="background:orange">
+
+                                            <input type="hidden" value="{$info.color}" name="color"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <strong>链接</strong>
+                                    </td>
+                                    <td>
+                                        <textarea name="url" rows="3" value="" style="width:550px"></textarea>
+                                        <strong>(
+                                            <label style="color:#FF0000;">*</label>
+                                            )</strong> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <strong>标签</strong>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <input type="text" name="tags" style="width:250px" value="{$tags}"/>
+                                            &nbsp;
+                                            <a href="javascript:void(0)">自动获取</a>
+                                        </span>
+
+                                        <span>
+                                            <strong style="margin-left:25px">作者</strong>
+                                            <input type="hidden" name="uid" value=""/>
+                                            <input type="text" name="uname" class="input-text" size="15"/>
+                                            &nbsp;
+                                            <a href="javascript:void(0)">随机</a>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="right">
+                                        <strong>上传图片</strong>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <input type="file" name="local_image" onchange="preview_image(this, 'preview')"/>
+                                        </span>
+                                        <span>
+                                            <strong style="margin-left:25px">排序</strong>
+                                            <input type="text" name="order" size="15" value="{$info.prices}"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <strong>远程图片</strong>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="remote_image" class="input-text" style="width:550px"/>
+                                        <input type="checkbox" name="save_image" style="margin-left:25px" />
+                                        保存到本地
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <strong>热门</strong>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            &nbsp;
+                                            <input type="radio" name="is_hot" value="1"/>
+                                            是
+                        &nbsp;
+                                            <input type="radio" name="is_hot" value="0" checked="checked"/>
+                                            否
+                                        </span>
+
+                                        <span style="margin-left: 25px">
+                                            <strong>推荐</strong>
+                                            &nbsp;
+                                            <input type="radio" name="is_recommend" value="1"/>
+                                            已推荐
+                        &nbsp;
+                                            <input type="radio" name="is_recommend" value="0" checked="checked"/>
+                                            未推荐
+                                        </span>
+
+                                        <span style="margin-left: 25px">
+                                            <strong>审核状态</strong>
+                                            &nbsp;
+                                            <input type="radio" name="status" value="1" checked="checked"/>
+                                            已通过
+                        &nbsp;
+                                            <input type="radio" name="status" value="0"/>
+                                            未审核
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                        <td align="left" >
+                            <table cellspacing="0" >
+                                <tr>
+                                    <td>
+                                        <img src="" id="preview" width="250px" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="padding: 2px 10px 15px">
+                            <textarea name="info" id="info" style="width:100%;height:350px;resize:none;">{$info.info}</textarea>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="tab-content" id="other_info">
+
+                <table width="100%" cellspacing="0">
+                    <tr>
+                        <td align="right" style="width:120px">
+                            <strong>赞</strong>
+                        </td>
+                        <td>
+                            <span>
+                                <input type="text" name="good"/>
+                            </span>
+                            <span>
+                                <strong style="margin-left:25px">踩</strong>
+                                <input type="text" name="bad"/>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right">
+                            <strong>收藏数</strong>
+                        </td>
+                        <td>
+                            <span>
+                                <input type="text" name="favs"/>
+                            </span>
+
+                            <span>
+                                <strong style="margin-left:25px">点击量</strong>
+                                <input type="text" name="hits"/>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <strong>SEO TITLE</strong>
+                        </td>
+                        <td>
+                            <input type="text" name="seo_title" style="width:450px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <strong>SEO KEYS</strong>
+                        </td>
+                        <td>
+                            <input type="text" name="seo_keys" style="width:450px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <strong>SEO DESCRIPTION</strong>
+                        </td>
+                        <td>
+                            <textarea name="seo_desc" rows="3" value="" style="width:550px"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
     </div>
-</div>
-
-<div class="clear"></div>
-
-
-<div class="tab-container">
-
-    <div class="tab-content curr-content" id="base_info">
-
-        <table width="100%" cellspacing="0" >
-            <tr>
-                <td width="750px">
-                    <table width="100%" cellspacing="0" >
-                        <tr>
-                            <td align="right"><strong>所属栏目</strong></td>
-                            <td>
-                                <!-- Belongs Column -->
-                                <select name="bid">
-                                    <option value="0">==选择栏目==</option>
-                                </select>
-
-                                <strong style="margin-left:25px">商品来源</strong>
-                                <select name="fid">
-                                    <option value="0">==选择来源==</option>
-                                </select>
-
-                                <strong style="margin-left:25px">商品分类</strong>
-                                <select name="cid">
-                                    <option value="0">==选择分类==</option>
-                                    <foreach name="categories" item="v">
-                                        <option value="{$v.id}">{$v.html}{$v.name}</option>
-                                    </foreach>
-                                </select>
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="right"><strong>标题</strong></td>
-                            <td>
-                                <input type="text" name="title" style="width:550px"/>
-                                <strong>(<label style="color:#FF0000;">*</label>)</strong>
-
-                                <input type="hidden" value="{$info.colors}" name="color" id="title_color">
-                                &nbsp;<a href="javascript:void(0)">颜色</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><strong>链接</strong></td>
-                            <td>
-                                <textarea name="url" rows="3" value="" style="width:550px"></textarea>
-                                <strong>(<label style="color:#FF0000;">*</label>)</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><strong>标签</strong></td>
-                            <td>
-                    <span>
-                        <input type="text" name="tags" style="width:250px" value="{$tags}"/>
-                        &nbsp;<a href="javascript:void(0)">自动获取</a>
-                    </span>
-
-                    <span>
-                        <strong style="margin-left:25px">作者</strong>
-                        <input type="hidden" name="uid" value=""/>
-                        <input type="text" name="uname" class="input-text" size="15"/>
-                        &nbsp;<a href="javascript:void(0)">随机</a>
-                    </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><strong>原价</strong></td>
-                            <td>
-                    <span>
-                        <input type="text" name="old_price" size="15" value="{$info.prices}"/>
-                        <strong>(<label style="color:#FF0000;">*</label>)</strong>
-                    </span>
-                    <span>
-                        <strong style="margin-left:25px">折后价</strong>
-                        <input type="text" name="price" size="15" value="{$info.prices}"/>
-                        <strong>(<label style="color:#FF0000;">*</label>)</strong>
-                    </span>
-                                <span>
-                        <strong style="margin-left:25px">排序</strong>
-                        <input type="text" name="order" size="15" value="{$info.prices}"/>
-                    </span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align="right"><strong>上传图片</strong></td>
-                            <td>
-                                <input type="file" name="local_image" onchange="preview_image(this, 'preview')"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><strong>远程图片</strong></td>
-                            <td>
-                                <input type="text" name="remote_image" class="input-text" style="width:550px"/>
-                                <input type="checkbox" name="save_image" style="margin-left:25px" />保存到本地
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><strong>热门</strong></td>
-                            <td>
-                    <span>
-                        &nbsp;<input type="radio" name="is_hot" value="1"/> 是
-                        &nbsp;<input type="radio" name="is_hot" value="0" checked="checked"/>否
-                    </span>
-
-                    <span style="margin-left: 25px">
-                        <strong>推荐</strong>
-                        &nbsp;<input type="radio" name="is_recommend" value="1"/> 已推荐
-                        &nbsp;<input type="radio" name="is_recommend" value="0" checked="checked"/> 未推荐
-                    </span>
-
-                    <span style="margin-left: 25px">
-                        <strong>审核状态</strong>
-                        &nbsp;<input type="radio" name="status" value="1" checked="checked"/> 已通过
-                        &nbsp;<input type="radio" name="status" value="0"/>未审核
-                    </span>
-                            </td>
-                        </tr>
-                    </table>
-
-                </td>
-
-                <td align="left" >
-                    <table cellspacing="0" >
-                        <tr>
-                            <td>
-                                <img src="" id="preview" width="250px" />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-
-            </tr>
-
-
-            <tr>
-                <td colspan="2" style="padding: 2px 10px 15px">
-                    <textarea name="info" id="info" style="width:100%;height:350px;resize:none;">{$info.info}</textarea>
-                </td>
-            </tr>
-        </table>
-
-
-    </div>
-
-    <div class="tab-content" id="other_info">
-
-        <table width="100%" cellspacing="0">
-            <tr>
-                <td align="right" style="width:120px"><strong>赞</strong></td>
-                <td>
-                    <span>
-                        <input type="text" name="good"/>
-                    </span>
-                    <span>
-                        <strong style="margin-left:25px">踩</strong>
-                        <input type="text" name="bad"/>
-                    </span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="right"><strong>收藏数</strong></td>
-                <td>
-                    <span>
-                        <input type="text" name="favs"/>
-                    </span>
-
-                    <span>
-                        <strong style="margin-left:25px">点击量</strong>
-                        <input type="text" name="hits"/>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right"><strong>SEO TITLE</strong></td>
-                <td>
-                    <input type="text" name="seo_title" style="width:450px"/>
-                </td>
-            </tr>
-            <tr>
-                <td align="right"><strong>SEO KEYS</strong></td>
-                <td><input type="text" name="seo_keys" style="width:450px"/></td>
-            </tr>
-            <tr>
-                <td align="right"><strong>SEO DESCRIPTION</strong></td>
-                <td>
-                    <textarea name="seo_desc" rows="3" value="" style="width:550px"></textarea>
-                </td>
-            </tr>
-        </table>
-
-    </div>
-
-
-</div>
-</div>
 
 </form>
-
 
 <script type="text/javascript">
 
@@ -272,6 +303,5 @@
         document.getElementById(showContent).style.display = "block";
     }
 </script>
-
 
 <include file="Common:bottom"/>

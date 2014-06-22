@@ -26,9 +26,11 @@ class ItemAction extends CommonAction {
         $categories = M('item_cate')->select();
         // 对分类进行递归排序
         $categories = Category::unlimitForLevel($categories, '&nbsp;&nbsp;&nbsp;|—&nbsp;');
-
         $this->assign('categories', $categories);
-
+        
+        // 读取所有的商城
+        $malls = M('mall')->select();
+        $this->assign('malls', $malls);
 
         $this->display();
     }
@@ -42,12 +44,12 @@ class ItemAction extends CommonAction {
         // p($_POST);
 
         // 标题
-        $title = I('title');
+        $title = I('title', '', 'htmlspecialchars');
         if ($title == '') {
             $this->error('标题不能为空！');
         }
         // 商品连接
-        $url = I('url');
+        $url = I('url', '', 'htmlspecialchars');
         if ($url == '') {
             $this->error('链接不能为空！');
         }
@@ -58,6 +60,18 @@ class ItemAction extends CommonAction {
             // 从数据库中随机读取一个用户
             $uname = '张三';
             $uid = '2';
+        }
+
+        // 来自哪个网站
+        $mid = I('mid', 0, 'intval');
+        if ($mid == 0) {
+           $this->error('请选择商城！');
+        }
+
+        // 分类ID
+        $cid = I('cid', 0, 'intval');
+        if ($cid == 0) {
+            $this->error('请选择分类！');
         }
 
         // 远程图片地址
@@ -72,7 +86,15 @@ class ItemAction extends CommonAction {
                 }
                 $dir = $dir . date("Ymd");
                 mkdir($dir);
-                $upload_info = $this->upload($dir .'/');
+
+                // 生成两个略缩图
+                $thumb = array(
+                    'width' => '180,65',
+                    'height' => '180,65',
+                    'prefix' => 'm_,s_'
+                );
+
+                $upload_info = $this->upload($dir .'/', $thumb);
                 $image = $dir . '/' . $upload_info['0']['savename'];
                 // 从本地上传图片的话，localimage = TRUE
                 $local_image = 1;
@@ -96,23 +118,13 @@ class ItemAction extends CommonAction {
             }
         }
 
-        // 来自哪个网站
-        $fid = I('from', 0, 'intval');
-        if ($fid == 0) {
-           // $this->error('请选择来源！');
-        }
+        // 价钱说明
+        $price = I('price', '', 'htmlspecialchars');
 
-        // 分类ID
-        $cid = I('cid', 0, 'intval');
-        if ($cid == 0) {
-            $this->error('请选择分类！');
-        }
-        // 原价
-        $old_price = I('old_price', -1, 'intval');
-        // 折后价
-        $price = I('price', -1, 'intval');
-        if($old_price < 0 || $price < 0) {
-            $this->error('价钱填写错误！');
+        // 价钱说明的颜色，默认为橙色
+        $color = I('color', '', 'htmlspecialchars');
+        if($color == '') {
+            $color = '#F37E00';
         }
 
         // 是否热门
@@ -132,33 +144,8 @@ class ItemAction extends CommonAction {
         // 排序
         $order = I('order', 0, 'intval');
 
-        // 商品标签， 需要分割并过滤
+        // 商品标签， 需要分割并过滤，暂时未实现
         $tags = I('tags');
-        if ($tags) {
-            //标签不存在则添加
-            $tags_arr = explode(' ', $_POST['tags']);
-            $tags_arr = array_unique($tags_arr);
-
-            /*
-            foreach ($tags_arr as $tag) {
-                $isset_id = $items_tags->field('id')->where("name='".$tag."' and pid='".$data['cid']."' and is_del=0")->find();
-                if ($isset_id) {
-                    $items_tags_item->add(array(
-                        'item_id' => $id,
-                        'tag_id' => $isset_id['id'],
-                    ));
-                    $items_tags->where("id='".$isset_id['id']."'")->setInc('item_nums'); //标签item_nums加1
-                } else {
-                    $tag_id = $items_tags->add(array('name' => $tag));
-                    $items_tags_item->add(array(
-                        'item_id' => $id,
-                        'tag_id' => $tag_id
-                    ));
-                    $items_tags->where("id='".$tag_id."'")->setInc('item_nums'); //标签item_nums加1
-                }
-            }
-            */
-        }
 
         // 文章内容, 需要对内容进行过滤
         $info = I('info');
@@ -176,14 +163,10 @@ class ItemAction extends CommonAction {
 
             'title' => $title,
             'cid' => $cid,
-            'fid' => $fid,
-
-            // 标题颜色
-            'tcolor' => I('color'),
-
+            'mid' => $mid,
+            'tcolor' => $color,
             'url' => $url,
             'price' => $price,
-            'old_price' => $old_price,
             'image' => $image,
             'localimage'=> $local_image,
             'uid' => $uid,
@@ -213,9 +196,6 @@ class ItemAction extends CommonAction {
             'info' => $info
         );
 
-        p($data);
-
-        die;
 
         if(M('item')->add($data)) {
             $this->success('添加成功', U('Item/index'));
@@ -224,11 +204,6 @@ class ItemAction extends CommonAction {
         }
 
     }
-
-    public function _upload() {
-
-    }
-
 
 
     public function category() {

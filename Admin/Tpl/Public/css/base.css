@@ -111,6 +111,17 @@ button {
     background-color: #929292;
 }
 
+
+div.color {
+    float:left;
+    width: 30px;
+    height:30px;
+    line-height: 30px;
+    margin-left: 15px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
 div.action {
     margin: 10px 0 15px;
 }
@@ -187,7 +198,7 @@ div.action {
     display:block;
     vertical-align: middle;
     text-align: center;
-    background-color: #CC5252;
+    background-color: #AECBD5;
     margin-right:5px;
     cursor:pointer;
 }

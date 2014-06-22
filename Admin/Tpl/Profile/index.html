@@ -1,54 +1,82 @@
 <include file="Common:base" />
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
-    <tr>                                
-        <td width="120" align="right">操作系统：</td>
-        <td>WINNT</td>
-        <td width="120" align="right">主机名IP端口：</td>
-        <td>localhost (127.0.0.1:80)</td>
-    </tr>
-    <tr>                      
-        <td width="120" align="right">运行环境：</td>
-        <td>Apache/2.4.4 (Win32) PHP/5.4.16</td>
-        <td width="120" align="right">PHP运行方式：</td>
-        <td>apache2handler</td>
-    </tr>
-    <tr> 
-        <td width="120" align="right">程序目录：</td>
-        <td>D:\Developer\wamp\www\pacs/</td>
-        <td width="120" align="right">MYSQL版本：</td>
-        <td>mysqlnd 5.0.10 - 20111026 - $Id: e707c415db32080b3752b232487a435ee0372157 $</td>
-    </tr>
-    <tr>                   
-        <td width="120" align="right">GD库版本：</td>
-        <td>bundled (2.1.0 compatible)</td>
-        <td width="120" align="right">上传附件限制：</td>
-        <td>2M</td>
-    </tr>
-    <tr>                                
-        <td width="120" align="right">执行时间限制：</td>
-        <td>30秒</td>
-        <td width="120" align="right">剩余空间：</td>
-        <td>180463.1M</td>
-    </tr>
-    <tr>                                
-        <td width="120" align="right">服务器时间：</td>
-        <td>2014年2月20日 20:31:33</td>
-        <td width="120" align="right">北京时间：</td>
-        <td>2014年2月20日 20:31:33</td>
-    </tr>
-    <tr>                                
-        <td width="120" align="right">采集函数检测：</td>
-        <td>支持</td>
-        <td width="120" align="right">register_globals：</td>
-        <td>OFF</td>
-    </tr>
-    <tr>
-        <td width="120" align="right">magic_quotes_gpc：</td>
-        <td>NO</td>
-        <td width="120" align="right">magic_quotes_runtime：</td>
-        <td>NO</td>
-    </tr>                                                
-</table>
+<form id="myform" name="myform" action="{:U('Profile/orderMallHandle')}" method="post" >
 
+    <table class="table-list" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th width="5%"><input type="checkbox" name="check_all" value="" id="check_all"></th>
+            <th width=80>商城名称</th>
+            <th width=100>图片</th>
+            <th width=150>备注</th>
+            <th>商城简介</th>
+            <th width=100>排序值</th>
+            <th width=100>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <volist name="malls" id='val'>
+                <tr>
+                    <td align="center"><input type="checkbox" value="{$val.id}" name="id[]" /></td>
+                    <td align="center">{$val.name}
+                    </td>
+                    <td align="left"><img src="__ROOT__{$val.bimage}" /></td>
+                    <td align="left">{$val.remark}</td>
+                    <td align="left">{$val.desc}</td>
+                    <td align="center">
+                        <input type="text" value="{$val.order}" size="4" name="orders[{$val.id}]" />
+                    </td>  
+                    <td align="center">
+                        <a class="blue" href="{:U('Profile/addMall', array('id'=>$val['id']))}">编辑</a>&nbsp;&nbsp;
+                        <a class="blue" href="#" onclick='confirmDel("{:U('Profile/delMallHandle', array('id'=>$val['id']))}")' >删除</a>
+                    </td>
+                </tr>            
+            </volist>
+            
+        </tbody>
+    </table>
+
+    <div class="action">
+        <label for="check_box">全选/取消</label>&nbsp;&nbsp;
+        <input type="submit" class="btn" name="order" value="排序"/>
+    </div>
+
+</form>
+
+
+<script type="text/javascript">
+    
+    // 弹出对话框提醒用户是否要删除
+    function confirmDel(url) {
+        var result = window.confirm("确定要删除吗？");
+        if (result) {
+            window.location = url;
+        }
+    }
+     
+    $(function() {
+
+        /*
+         *  jquery1.9+ 在使用attr方法改变checkbox的checked属性时，
+         *  只能操作一次，重复操作的话，界面将不更新，即不可重复操作
+         *  解决方案：采用prop方法替代attr方法
+         *
+         *  多选功能暂时没有用到
+         *
+         */
+        $('#check_all').click(function() {
+            if( $('#check_all').is(':checked') ) {
+                $('input[name="id[]"]').each(function() {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $('input[name="id[]"]').each(function() {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+    });
+        
+
+</script>
 <include file="Common:bottom" />

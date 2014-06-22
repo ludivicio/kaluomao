@@ -92,14 +92,15 @@ class CommonAction extends Action {
         $upload->maxSize = 2097152; // 设置附件上传大小
         $upload->savePath = $savePath; // 设置附件上传目录
         $upload->saveRule = 'uniqid';
-        $upload->allowExts = array('jpg', 'png', 'jpeg'); // 设置附件上传类型
-
+        $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
+        
         if ($thumb) {
-            $upload->thumb = true;
-            $upload->thumbMaxWidth = $thumb['width'];
+            $upload->thumb = true; // 使用对上传图片进行缩略图处理
+            $upload->thumbMaxWidth = $thumb['width'];       
             $upload->thumbMaxHeight = $thumb['height'];
-            $upload->thumbPrefix = 's_';
+            $upload->thumbPrefix = $thumb['prefix'];
             $upload->thumbRemoveOrigin = true;
+            $upload->thumbType = 0; // 缩略图生成方式 1 按设置大小截取 0 按原图等比例缩略
         }
 
         if (!$upload->upload()) {

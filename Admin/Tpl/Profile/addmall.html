@@ -1,0 +1,99 @@
+<include file="Common:base" />
+
+<div style="float:left">
+    <form method="post" action="{:U('Profile/addMallHandle')}" enctype="multipart/form-data" >
+    <table>
+        <tr>
+            <td class="title">
+                <label>商城名称</label>
+            </td>
+            <td>
+                <input type="hidden" name="id" value="{$mall.id}"/>
+                <input type="text" class="" name="name" value="{$mall.name}"/>
+            </td>
+            <td><label style="color:red">(必填)</label></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>备注</label>
+            </td>
+            <td>
+                <input type="text" class="" name="remark" value="{$mall.remark}"/>
+            </td>
+            <td><label style="color:red">(必填)</label></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>商城图片</label>
+            </td>
+            <td>
+                
+                <input type="file" name="bimage" onchange="preview_image(this, 'preview')"/>
+                         
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>排序</label>
+            </td>
+            <td>
+                <input type="text" name="order"  value="{$mall.order}"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>商城描述</label>
+            </td>
+            <td>
+                <textarea name="desc" rows="4"> {$mall.desc}</textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO TITLE</label>
+            </td>
+            <td>
+                <input type="text" name="seo_title"  value="{$mall.seo_title}"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO KEYWORDS</label>
+            </td>
+            <td>
+                <input type="text" name="seo_keys"  value="{$mall.seo_keys}"/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="title">
+                <label>SEO DESCRIPTION</label>
+            </td>
+            <td>
+                <textarea name="seo_desc" rows="5"> {$mall.seo_desc}</textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="action">
+                <button type="submit" class="btn btn-confirm">确定</button>
+                <button type="button" class="btn btn-cancel" style="margin-left: 30px">取消</button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+</div>
+<div style="float:left;margin-left: 20px">
+
+    <img src="" id="preview" width="250px" />
+
+</div>
+
+<div class="clear"></div>
+<include file="Common:bottom" />
